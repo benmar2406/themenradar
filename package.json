@@ -1,0 +1,12 @@
+{
+    "name": "themenradar",
+    "version": "1.0.0",
+    "scripts": {
+        "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\"",
+        "dev:frontend": "cd frontend && npm run dev",
+        "dev:backend": "cd backend && source venv/bin/activate && python app.py"
+    },
+    "devDependencies": {
+        "concurrently": "^8.2.2"
+    }
+}
