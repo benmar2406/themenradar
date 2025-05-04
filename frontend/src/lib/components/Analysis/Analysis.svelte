@@ -1,5 +1,5 @@
 <script>
-    import ChartContainer from "../Charts/Charts/ChartContainer.svelte";
+    import ResultsVisualization from "../ResultsVisualization/Charts/ResultsVisualization.svelte";
     import FormSection from "../FormSection/FormSection.svelte";
 
     let topic = $state('Thema');
@@ -71,7 +71,7 @@
     {route}
     {result}
     />
-<ChartContainer 
+<ResultsVisualization 
     {resultData} 
     {resolvedTopic}
     bind:topic={topic}

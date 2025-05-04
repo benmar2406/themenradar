@@ -83,13 +83,13 @@
     .button-container {
         display: flex;
         width: 90%;
-        justify-content: start;
         margin-bottom: 2rem;
         padding: 0.3rem;
+        align-items: center;
     }
 
     .button-container button {
         font-size: 1.1rem;
-
+        margin-right: 2rem;
     }
 </style>

@@ -7,11 +7,11 @@
 
   // Svelte 5: access reactive props
   let { data, topic, resolvedTopic } = $props();
-  let pieData = $state()
+  //let pieData = $state()
 
 
-  let height = 400;
-  let width = 400;
+  let height = 390;
+  let width = 390;
 
   // Color scale by tone
   const colorScale = scaleOrdinal()
@@ -20,12 +20,12 @@
 
   // Arc generators
   const arcGenerator = arc()
-    .innerRadius((0.6 * height) / 2.4)
+    .innerRadius((0.5 * height) / 2.4)
     .outerRadius((0.8 * height) / 2.2)
     .cornerRadius(4);
 
   const labelArcs = arc()
-    .innerRadius((0.87 * height) / 2)
+    .innerRadius((0.9 * height) / 2)
     .outerRadius((0.87 * height) / 2);
 
   // Compute pie layout
@@ -33,13 +33,15 @@
     .value(d => d.percentage)
     .sort(null);
 
-  $effect(() => {
+  /*$effect(() => {
     if (!data || data.length === 0) {
       pieData= [];
     } else {
     pieData = pieGenerator(data)
     }
-  })  
+  })  */
+
+  let pieData = pieGenerator(data)
 
   // Animation transition for each slice
   const reveal = (node, { index }) => {
@@ -57,9 +59,10 @@
     };
   };
 </script>
-
+<div class="pie-chart-container">
+<h3 class="pie-chart-title">Verteilung der Stimmung</h3>
 <svg {width} {height} viewBox="0 0 {width} {height}" class="chart">
-  <g transform="translate({width / 2} {height / 2 })">
+  <g transform="translate({width / 2} {height / 2.3 })">
     <text
        text-anchor="middle"
        font-size="0.9em"
@@ -98,16 +101,27 @@
     {/each}
   </g>
 </svg>
+</div>
 
 <style>
+
+  .pie-chart-container {
+    width: fit-content;
+    margin: 3rem;
+  }
+
   .chart {
     max-width: 100%;
-    height: auto;
+    height: fit-content;
     display: block;
     overflow: "visible";
   }
 
+  .pie-chart-title {
+    text-align: center;
+  }
+
   .fill-black-100 {
-    fill: black;
+    fill: #1E1E1E;
   }
 </style>

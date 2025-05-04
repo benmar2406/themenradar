@@ -55,6 +55,7 @@ def analyze_topic_sentiment():
 GNEWS_API_KEY = os.getenv("GNEWS_API_KEY")
 
 @app.route('/analyze-media', methods=['POST'])
+
 def analyze_media():
     try:
         data = request.get_json()
@@ -68,7 +69,7 @@ def analyze_media():
             "q": topic,
             "lang": "de",
             "max": 50,
-            "sort": "relevance",
+            "sort": "publishedAt",
             "token": GNEWS_API_KEY
         }
 
