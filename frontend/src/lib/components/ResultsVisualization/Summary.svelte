@@ -9,19 +9,19 @@ let { summary } = $props();
     <div class="summaries">
         <div>
             <p class="summary-title">Artikel gefunden:</p>
-            <p class="summary-number">{summary.total}</p>
+            <p class="summary-number">{summary?.total}</p>
         </div>
         <div>
             <p class="summary-title">Davon positiv:</p>
-            <p class="summary-number">{summary.positive}</p>
+            <p class="summary-number">{summary?.positive}</p>
         </div>
         <div>
             <p class="summary-title">Davon neutral:</p>
-            <p class="summary-number">{summary.neutral}</p>
+            <p class="summary-number">{summary?.neutral}</p>
         </div>
         <div>
             <p class="summary-title">Davon negativ:</p>
-            <p class="summary-number">{summary.negative}</p>
+            <p class="summary-number">{summary?.negative}</p>
         </div>
     </div>
     <p class="dominant-sentiment">Überwiegendes Sentiment: {summary.dominantSentiment}</p>

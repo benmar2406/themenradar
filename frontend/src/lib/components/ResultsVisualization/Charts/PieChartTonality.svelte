@@ -7,16 +7,17 @@
 
   // Svelte 5: access reactive props
   let { data, topic, resolvedTopic } = $props();
-  //let pieData = $state()
+
+  let pieData = $state()
 
 
-  let height = 390;
-  let width = 390;
+  let height = 360;
+  let width = height;
 
   // Color scale by tone
   const colorScale = scaleOrdinal()
     .domain(["positive", "neutral", "negative"])
-    .range(["#3B82F6", "#fff01c", "#FF4E42"]);
+    .range(["#fff01c", "#FFF9B0", "#FFCC33"]);
 
   // Arc generators
   const arcGenerator = arc()
@@ -25,7 +26,7 @@
     .cornerRadius(4);
 
   const labelArcs = arc()
-    .innerRadius((0.9 * height) / 2)
+    .innerRadius((0.9 * height) / 2.1)
     .outerRadius((0.87 * height) / 2);
 
   // Compute pie layout
@@ -33,15 +34,14 @@
     .value(d => d.percentage)
     .sort(null);
 
-  /*$effect(() => {
+  $effect(() => {
     if (!data || data.length === 0) {
       pieData= [];
     } else {
     pieData = pieGenerator(data)
     }
-  })  */
+  })  
 
-  let pieData = pieGenerator(data)
 
   // Animation transition for each slice
   const reveal = (node, { index }) => {
@@ -63,11 +63,6 @@
 <h3 class="pie-chart-title">Verteilung der Stimmung</h3>
 <svg {width} {height} viewBox="0 0 {width} {height}" class="chart">
   <g transform="translate({width / 2} {height / 2.3 })">
-    <text
-       text-anchor="middle"
-       font-size="0.9em"
-        >{resolvedTopic[0].toUpperCase() + resolvedTopic.slice(1)}
-    </text>
     {#each pieData as d, i (d.data.tone)}
       <path
         in:reveal={{ index: i }}
@@ -107,7 +102,7 @@
 
   .pie-chart-container {
     width: fit-content;
-    margin: 3rem;
+    margin: 2rem;
   }
 
   .chart {

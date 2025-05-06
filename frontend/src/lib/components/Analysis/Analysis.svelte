@@ -54,7 +54,6 @@
         } finally {
             loading = false;
             if (statusOk) {
-                resultData = result.summary.percentages
                 resolvedTopic = topic
             } 
         }
@@ -72,7 +71,7 @@
     {result}
     />
 <ResultsVisualization 
-    {resultData} 
+    resultData={result} 
     {resolvedTopic}
     bind:topic={topic}
     />

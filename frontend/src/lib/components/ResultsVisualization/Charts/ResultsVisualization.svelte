@@ -1,77 +1,106 @@
 <script>
 	import { resolveRoute } from "$app/paths";
     import PieChartTonality from "./PieChartTonality.svelte";
+    import LineChartHistorical from "./LineChartHistorical.svelte";
     import Summary from "../Summary.svelte";
     import TopArticle from "../TopArticle.svelte";
 
-    let { resultData } = $props()
+    let { resultData, topic, resolvedTopic } = $props();
+    let element; 
 
-    /*let numbers = $state(null);
+    let pieChartData = $state(null);
+    let summary = $state(null);
+    let topArticle = $state(null);
+    let readyToScroll = $state(false);
+
 
     $effect(() => {
         if (resultData) {
-            numbers =  [
-                { tone: "positive", percentage: resultData?.positive ?? 0 },
-                { tone: "neutral",  percentage: resultData?.neutral  ?? 0 },
-                { tone: "negative", percentage: resultData?.negative ?? 0 }
+            pieChartData =  [
+                { tone: "positive", percentage: resultData?.summary_recent.percentages.positive ?? 0 },
+                { tone: "neutral",  percentage: resultData?.summary_recent.percentages.neutral  ?? 0 },
+                { tone: "negative", percentage: resultData?.summary_recent.percentages.negative ?? 0 }
             ]
-    }});*/
+            summary = resultData.summary_recent;
+            topArticle = resultData.results[0]
+        }
+
+        if (pieChartData && summary && topArticle) {
+            readyToScroll = true;
+        }
+    });
+
+
+    $effect(() => {
+        if (readyToScroll) {
+            element.scrollIntoView({         
+			behavior: 'smooth',
+			block: 'start'
+		});
+        }
+    })
+
+    $inspect(readyToScroll);
 
 //mockup data for testing
-  const numbers = [
+  /*const numbers = [
         { tone: "positive", percentage: 20 },
         { tone: "neutral", percentage: 30 },
         { tone: "negative", percentage: 50 }
   ];
 
   let topic = 'Klimmawandel';
-  let resolvedTopic = 'Klimawandel Test'
+  let resolvedTopic = 'Klimawandel Test'*/
 
-  const summary = {
+  /*const summary = {
             "positive": 20,
             "neutral": 30,
             "negative": 50,
             "total": 100,
             "dominantSentiment": 'negativ'
-        }
+        }*/
 
-    let results = [{
+   /*let results = [{
             "article": {
                 "title": "Deggendorfer Stadtgärtnerei: Grüner Daumen trotz Klimawandel. Was macht der Klimawandel mit dem Wetter?",
                 "source": "Golem",
                 "url": "https://www.golem.de/news/klimawandelsimulation-dubai-am-rhein-2505-195460.html",
+                "publishedDate": "2022-09-28T08:14:24Z",
                 "content": "Durch den Klimawandel treten Wetterextreme wie Dürren viel öfter auf. Ein Simulationswerkzeug zeigt, welchen Einfluss das lokal haben kann."
             },
             "analysis": "negative"
         }]
-  
+    let topArticle = results[0]*/
 
 </script>
 
 <section>
-    <div class="bg">
-        <h2 class='results-title'>Deine Auswertung zum Thema »{resolvedTopic}«</h2>
+    <div 
+        class="bg"
+        bind:this={element}>
+        <h2 class='results-title'>Deine Auswertung zum Thema: {resolvedTopic.charAt(0).toUpperCase() + resolvedTopic.slice(1).toLowerCase()}</h2>
     </div>
-    <!--{#if numbers && (resultData.positive > 0 || resultData.neutral > 0 || resultData.negative > 0)}
-    <PieChartTonality 
-        data={numbers} 
-        {topic} 
-        {resolvedTopic}>
-    {/if}-->
+    
     <div class="results-visualization">
+        {#if pieChartData}
         <Summary {summary}/>
         <PieChartTonality 
-            data={numbers} 
+            data={pieChartData}
             {topic} 
-            {resolvedTopic}/>
-        <TopArticle {results}/>
-        
+            {resolvedTopic}
+        />
+        <LineChartHistorical/>
+        <TopArticle 
+            {topArticle} 
+        />
+        {/if} 
     </div>
 </section>
 
 <style>
     section {
         margin: 4rem auto;
+        margin-top: 0.4rem;
         width: 80%;
         padding: 0rem;
         box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
@@ -81,6 +110,7 @@
     .results-visualization {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
+        padding-bottom: 3rem;
         gap: 1rem;
     }
 

@@ -72,8 +72,8 @@
  }
 
 button {
-    background-color: #fff01c;
-    border: none;
+    background-color: transparent;
+    border: solid 0.2rem #fff01c;
     color: #1E1E1E;
     font-family: 'Poppins', sans-serif;
     text-decoration: none;
@@ -84,10 +84,10 @@ button {
  }
 
  button:hover, button.selected {
-  padding: 0.8rem;
   font-weight: 600;
- }
+  background-color: #fff01c;
 
+ }
 
 
  input:focus, textarea:focus {
@@ -100,5 +100,9 @@ button {
 }
 
 .item-container  {
-  margin: 3rem;
+  margin: 1rem 3rem;
+}
+
+.dark-bg {
+  background-color:RGB(30, 30, 30, 0.8)  
 }

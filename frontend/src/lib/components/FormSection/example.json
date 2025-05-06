@@ -1,0 +1,86 @@
+{
+    "summary_recent": {
+      "positive": 22,
+      "neutral": 31,
+      "negative": 7,
+      "percentages": {
+        "positive": 35.48,
+        "neutral": 50.00,
+        "negative": 11.29
+      },
+      "total": 60,
+      "dominantSentiment": "neutral",
+      "windowDays": 30
+    },
+  
+    "monthly_percentages": {
+      "2024-12": { "positive": 38.1, "neutral": 49.2, "negative": 12.7 },
+      "2025-01": { "positive": 34.4, "neutral": 53.1, "negative": 12.5 },
+      "2025-02": { "positive": 36.6, "neutral": 52.2, "negative": 11.2 },
+      "2025-03": { "positive": 32.8, "neutral": 54.9, "negative": 12.3 },
+      "2025-04": { "positive": 29.7, "neutral": 57.8, "negative": 12.5 },
+      "2025-05": { "positive": 41.5, "neutral": 46.2, "negative": 12.3 }
+    },
+  
+    "results": [
+      {
+        "article": {
+          "title": "KI-Start-up revolutioniert Medizinbranche",
+          "source": "Der Spiegel",
+          "url": "https://www.spiegel.de/wirtschaft/ki-medizin-start-up-a123456.html",
+          "publishedDate": "2024-11-15T09:12:00Z",
+          "content": "Ein Berliner Jungunternehmen hat eine KI entwickelt, die..."
+        },
+        "analysis": {
+          "labels": [
+            "positive about künstliche intelligenz",
+            "neutral toward künstliche intelligenz",
+            "negative about künstliche intelligenz"
+          ],
+          "scores": [0.83, 0.11, 0.06],
+          "sequence": "Ein Berliner Jungunternehmen hat...",
+          "topLabel": "positive about künstliche intelligenz"
+        }
+      },
+      {
+        "article": {
+          "title": "EU verhandelt weiter über KI-Gesetzgebung",
+          "source": "Tagesschau",
+          "url": "https://www.tagesschau.de/wirtschaft/eu-ki-gesetz-9876.html",
+          "publishedDate": "2024-06-21T18:20:00Z",
+          "content": "Die EU-Staaten diskutieren kontrovers über..."
+        },
+        "analysis": {
+          "labels": [
+            "neutral toward künstliche intelligenz",
+            "negative about künstliche intelligenz",
+            "positive about künstliche intelligenz"
+          ],
+          "scores": [0.58, 0.25, 0.17],
+          "sequence": "Die EU-Staaten diskutieren...",
+          "topLabel": "neutral toward künstliche intelligenz"
+        }
+      }
+    ],
+  
+    "mostRecentArticle": {
+      "article": {
+        "title": "Bundesregierung startet neue KI-Förderoffensive",
+        "source": "Süddeutsche Zeitung",
+        "url": "https://www.sueddeutsche.de/wirtschaft/ki-offensive-1.987654",
+        "publishedDate": "2025-05-04T07:45:00Z",
+        "content": "Die Bundesregierung kündigte heute an..."
+      },
+      "analysis": {
+        "labels": [
+          "positive about künstliche intelligenz",
+          "neutral toward künstliche intelligenz",
+          "negative about künstliche intelligenz"
+        ],
+        "scores": [0.74, 0.18, 0.08],
+        "sequence": "Die Bundesregierung kündigte heute...",
+        "topLabel": "positive about künstliche intelligenz"
+      }
+    }
+  }
+  
