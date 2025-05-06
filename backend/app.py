@@ -20,8 +20,16 @@ from transformers import pipeline
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)
-
+CORS(
+    app,
+    resources={r"/*": {
+        "origins": [
+            "http://localhost:5173",                 # Vite dev server
+            "https://www.benediktmartini.de"
+        ]
+    }},
+    supports_credentials=False      # keep default unless you use cookies
+)
 classifier    = pipeline("zero-shot-classification", model="facebook/bart-large-mnli")
 GNEWS_API_KEY = os.getenv("GNEWS_API_KEY")
 BASE_URL      = "https://gnews.io/api/v4/search"

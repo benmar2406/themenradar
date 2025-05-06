@@ -15,6 +15,8 @@
     let resultData = $state(null);
     let statusOk =  $state(false);
 
+    const API = import.meta.env.VITE_API_BASE;
+
     async function analyze(topic, text, route) {
         loading = true;
         error = null;
@@ -25,7 +27,7 @@
                 payload.text = text;
             }
 
-            const res = await fetch(`http://localhost:5000/${route}`, {
+            const res = await fetch(`${API}/${route}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
