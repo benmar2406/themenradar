@@ -4,6 +4,12 @@
     import { line, curveBasis } from 'd3-shape';
     import { axisBottom, axisLeft } from 'd3-axis';
     import { draw } from 'svelte/transition';
+
+    const colors = [
+      { label: 'positiv', color: '#9DFF1C' }, 
+      { label: 'neutral', color: '#FFF01C' },
+      { label: 'negativ', color: '#FF7E1C' },
+    ]
   
     let width = $state(500);
     const height = 300;
@@ -94,9 +100,9 @@
       {#if width && xScale && yScale && linePositive && lineNeutral && lineNegative}
         <svg {width} {height}>
           <!-- Lines -->
-          <path d={linePositive} stroke="#fff01c" fill="none" stroke-width="3.5" in:draw={{ duration: 1200 }} />
-          <path d={lineNeutral} stroke="#FFF9B0" fill="none" stroke-width="3.5" in:draw={{ duration: 1200 }} />
-          <path d={lineNegative} stroke="#FFCC33" fill="none" stroke-width="3.5" in:draw={{ duration: 1200 }} />
+          <path d={linePositive} stroke="#9DFF1C" fill="none" stroke-width="3.5" in:draw={{ duration: 1200 }} />
+          <path d={lineNeutral} stroke="#FFF01C" fill="none" stroke-width="3.5" in:draw={{ duration: 1200 }} />
+          <path d={lineNegative} stroke="#FF7E1C" fill="none" stroke-width="3.5" in:draw={{ duration: 1200 }} />
   
           <!-- X Axis -->
           <g transform={`translate(0, ${height - margin.bottom})`}>
@@ -122,6 +128,15 @@
           </svg>
       {/if}
     </div>
+    <div>
+      <div class="legend-items">
+        {#each colors as color}
+          <div class="legend-item">
+            <div class="color-legend" style="background-color: {color.color}"></div><span>{color.label}</span>
+          </div>
+        {/each}
+      </div>
+    </div>
   </div>
   
   <style>
@@ -133,5 +148,32 @@
       font-family: sans-serif;
       fill: #333;
     }
+
+    .legend-items {
+      display: flex;
+      margin-top: 1.3rem;
+    }
+    
+    .legend-item {
+      display: flex;
+      align-items: center;
+      margin: 0.2rem 1.3rem;
+
+    }
+
+    .legend-item span {
+      margin: 0;
+      font-size: 0.8rem;
+    }
+
+    .color-legend {
+      height: 1.2rem;
+      width: 1.2rem;
+      border-radius: 50%;
+      display: inline-block;
+      margin: 0.3rem;
+    }
   </style>
+
+
   
