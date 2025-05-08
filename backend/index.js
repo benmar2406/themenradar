@@ -41,12 +41,25 @@ async function sentiment(topic, text) {
   };
 }
 
-var corsOptions = {
-  origin: 'http://localhost:5173/',
-  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+const allowedOrigins = [process.env.CLIENT_ORIGIN];
+
+// Optionally keep the localhost origin when NODE_ENV !== "production"
+if (process.env.NODE_ENV !== "production") {
+  allowedOrigins.push("http://localhost:5173");
 }
 
-app.post("/analyze", cors(corsOptions), async (req, res) => {
+app.use(
+  cors({
+    origin(origin, cb) {
+      // requests from tools like curl have no Origin header → allow them
+      if (!origin || allowedOrigins.includes(origin)) return cb(null, true);
+      cb(new Error("Not allowed by CORS"));
+    },
+    optionsSuccessStatus: 200
+  })
+);
+
+app.post("/analyze", async (req, res) => {
   try {
     const { topic = "", text = "" } = req.body;
     const out = await sentiment(topic.trim(), text.trim());
@@ -58,7 +71,7 @@ app.post("/analyze", cors(corsOptions), async (req, res) => {
 
 
 
-app.post("/analyze-media", cors(corsOptions), async (req, res) => {
+app.post("/analyze-media", async (req, res) => {
   try {
     const topic = (req.body.topic || "").trim();
     if (!topic) return res.status(400).json({ error: "Missing topic" });
