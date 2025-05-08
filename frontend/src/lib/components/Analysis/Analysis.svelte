@@ -38,7 +38,6 @@
 
             if (res.ok) {
                 result = data;
-                console.log(result);
                 statusOk = true;
 
             } else {

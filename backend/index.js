@@ -12,8 +12,6 @@ const frontendDir = path.join(__dirname, '../frontend/build');
 dotenv.config({
   path: path.join(__dirname, '.env')
 });
-console.log("process.cwd():", process.cwd());
-console.log("__dirname:", path.dirname(fileURLToPath(import.meta.url)));
 
 const app = express();
 app.use(express.json());
@@ -22,8 +20,7 @@ const HF_ENDPOINT =
   "https://api-inference.huggingface.co/models/MoritzLaurer/DeBERTa-v3-base-mnli-fever-anli"; //facebook/bart-large-mnli
 const HF_HEADERS  = { Authorization: `Bearer ${process.env.HF_TOKEN}` };
 const GNEWS_URL   = "https://gnews.io/api/v4/search";
-console.log(process.env.HF_TOKEN)
-console.log(HF_HEADERS)
+
 async function sentiment(topic, text) {
   const payload = {
     inputs: text,
