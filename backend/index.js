@@ -50,6 +50,15 @@ if (process.env.NODE_ENV !== "production") {
   allowedOrigins.push("http://localhost:5173");
 }
 
+function logRoute(route, where) {
+  console.log('ROUTE', where, JSON.stringify(route));
+}
+
+app.get('/health', (req, res) => res.send('ok'));
+logRoute('/health', 'manual check');       // 👈 prints safely
+
+// ↓↓↓  whichever line is still bad will explode *right here*
+
 
 app.use(
   cors({
