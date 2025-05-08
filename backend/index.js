@@ -77,7 +77,6 @@ app.use(
   })
 );
 
-
 app.post("/analyze", async (req, res) => {
   try {
     const { topic = "", text = "" } = req.body;
