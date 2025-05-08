@@ -77,6 +77,7 @@ app.use(
   })
 );
 
+
 app.post("/analyze", async (req, res) => {
   try {
     const { topic = "", text = "" } = req.body;
@@ -86,7 +87,6 @@ app.post("/analyze", async (req, res) => {
     res.status(500).json({ error: e.message });
   }
 });
-
 
 
 app.post("/analyze-media", async (req, res) => {
@@ -165,9 +165,8 @@ app.post("/analyze-media", async (req, res) => {
 
 app.get("/health", (_, res) => res.send("ok"));
 
-// SPA fallback: any GET not caught above returns index.html
-app.get("/*", (_, res) =>
-  res.sendFile(path.join(frontendDir, "index.html"))
+app.get('/{*splat}', (_, res) =>
+  res.sendFile(path.join(frontendDir, 'index.html'))
 );
 
 const PORT = process.env.PORT || 5000;
