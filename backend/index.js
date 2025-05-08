@@ -57,7 +57,7 @@ const frontendDir = path.join(__dirname, '../frontend/build');
 
 app.use(express.static(frontendDir));                // serve JS/CSS/assets
 
-app.use(
+/*app.use(
   cors({
     origin(origin, cb) {
       // allow same-origin requests automatically
@@ -66,7 +66,7 @@ app.use(
       cb(new Error('Not allowed by CORS'));
     }
   })
-);
+);*/
 
 app.post("/analyze", async (req, res) => {
   try {
