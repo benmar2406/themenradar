@@ -43,7 +43,7 @@ async function sentiment(topic, text) {
   };
 }
 
-//const allowedOrigins = [process.env.CLIENT_ORIGIN].filter(Boolean);
+const allowedOrigins = [process.env.CLIENT_ORIGIN].filter(Boolean);
 
 // Optionally keep the localhost origin when NODE_ENV !== "production"
 if (process.env.NODE_ENV !== 'production') {
