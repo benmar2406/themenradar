@@ -74,7 +74,39 @@
         width: 100%;
         height: 100%;
         resize: none;
-
     }
+
+    label {
+        text-align: center;
+    }
+
+    @media only screen and (max-width: 1150px) {
+        
+        form {
+            margin: 4rem auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        input, textarea {
+            margin: 0.2rem auto;
+            height: 3rem;
+
+        }
+
+        #topic {
+            width: 80%;
+        }
+
+        button {
+            margin: 0.1rem auto;
+        }
+    }
+
+    @media only screen and (max-width: 550px) {
+        button {
+            padding: 1rem;
+        }
+  }
 
 </style>

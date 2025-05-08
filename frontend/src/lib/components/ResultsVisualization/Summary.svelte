@@ -34,10 +34,11 @@ let { summary } = $props();
         display: flex;
         flex-wrap: wrap;
         margin-top: 4rem;
+        width: 90%; 
     }
 
     .summaries > div {
-        flex-basis: 47%;
+        flex-basis: 45%;
         gap: 1rem;
         background-color: #FFF01C;
         padding: 0.7rem;
@@ -71,6 +72,32 @@ let { summary } = $props();
         padding: 1.2rem;
         font-weight: 600;
 
+    }
+
+    @media only screen and (max-width: 1000px) {
+        .summaries {
+            justify-content: center;
+            margin: auto;
+        }
+
+        .part-title {
+            text-align: center;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            margin-top: 2rem;
+            padding-top: 1rem;
+        }
+
+        .dominant-sentiment {
+            text-align: center;
+        }
+    }
+
+    @media only screen and (max-width: 680px) {
+        .summaries > div {
+            height: 9rem;
+    }
+        
     }
     
 

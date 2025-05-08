@@ -38,4 +38,24 @@
         width: 100%;
     }
 
+    @media only screen and (max-width: 900px) {
+        .informational {
+           display: block;
+        }
+
+        .informational-image {
+            display: none;
+        }
+    }
+
+    @media only screen and (max-width: 670px) {
+        .informational-article {
+            margin: 1rem auto;
+        }
+
+        .informational {
+            margin: 2rem auto;
+        }
+    }
+
 </style>

@@ -64,6 +64,7 @@
   margin: 1rem auto;
   padding: 2rem 0rem;
   width: 80%;
+  max-width: 1500px;
  }
 
  article {

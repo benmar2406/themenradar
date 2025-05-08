@@ -109,6 +109,7 @@
         margin: 4rem auto;
         margin-top: 0.4rem;
         width: 80%;
+        max-width: 1400px;
         padding: 0rem;
         box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
         border-radius: 20px;
@@ -132,6 +133,13 @@
         padding: 2rem;
         padding-bottom: 2rem;
         margin: 0;
+    }
+
+    @media only screen and (max-width: 1000px) {
+        .results-visualization {
+            display: block;
+            margin: auto;
+        }
     }
 
     

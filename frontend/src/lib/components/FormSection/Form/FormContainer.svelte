@@ -58,7 +58,7 @@
             />
             <div>
                 {#if loading}
-                    <p>Analysiere, das kann eine Weile dauern...</p>
+                    <p class="loading-text">Analysiere, das kann eine Weile dauern...</p>
                 {/if}
         
                 {#if error}
@@ -86,10 +86,46 @@
         margin-bottom: 2rem;
         padding: 0.3rem;
         align-items: center;
+        justify-content: flex-start;
     }
 
     .button-container button {
         font-size: 1.1rem;
         margin-right: 2rem;
+    }
+
+    @media only screen and (max-width: 1150px) {
+        .form-container {
+            width: 80vw;
+            margin: auto;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-container h2 {
+            text-align: center;
+        }
+
+        .button-container {
+            margin: 0.4rem auto;
+            width: 100%;
+            margin-right: 0;
+            justify-content: center;
+        }
+
+        .button-container button {
+            margin-right: 0;
+            margin: 0.6rem;
+        }
+
+        .loading-text {
+            text-align: center;
+        }
+    }
+
+    @media only screen and (max-width: 670px) {
+        .form-container {
+            padding: 0.5rem;
+            margin: auto;
+        }
     }
 </style>

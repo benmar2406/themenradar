@@ -4,30 +4,49 @@
   import { interpolate } from "d3-interpolate";
   import { select } from "d3-selection";
   import { fade } from "svelte/transition";
+  import { innerWidth, innerHeight } from 'svelte/reactivity/window';
 
   // Svelte 5: access reactive props
   let { data, topic, resolvedTopic } = $props();
 
-  let pieData = $state()
+  let pieData = $state();
+  let isSmallScreen = $state();
+  let width = $state(360);
+  let height = $derived(width);
+  let outerRadiusFactor =  $state(0.8);
 
+  $effect(() => {
+    if (innerWidth.current <= 1000) {
+      isSmallScreen = true;
+      width = 500;
+      outerRadiusFactor =  0.8;
+    } else {
+      isSmallScreen = false;
+      width = 360;
+      outerRadiusFactor =  0.8;
+    };
+    console.log(isSmallScreen)
+    console.log(width)
+    console.log(height)
+  })
 
-  let height = 360;
-  let width = height;
-
+  $effect(() => {
+    
+  })
   // Color scale by tone
   const colorScale = scaleOrdinal()
     .domain(["positive", "neutral", "negative"])
     .range(["#9DFF1C", "#FFF01C", "#FF7E1C"]);
 
   // Arc generators
-  const arcGenerator = arc()
+  let arcGenerator = $derived(arc()
     .innerRadius((0.5 * height) / 2.4)
     .outerRadius((0.8 * height) / 2.2)
-    .cornerRadius(4);
+    .cornerRadius(4));
 
-  const labelArcs = arc()
+  let labelArcs = $derived(arc()
     .innerRadius((0.9 * height) / 2.1)
-    .outerRadius((0.87 * height) / 2);
+    .outerRadius((0.9 * height) / 2));
 
   // Compute pie layout
   const pieGenerator = pie()
@@ -49,6 +68,7 @@
     const start = +d.startAngle;
     const end = +d.endAngle;
     let i = interpolate(start, end);
+
     return {
       delay: index * (end - start) * 20 + 300,
       duration: 400,
@@ -61,7 +81,7 @@
 </script>
 <div class="pie-chart-container">
 <h3 class="pie-chart-title">Verteilung der Stimmung</h3>
-<svg {width} {height} viewBox="0 0 {width} {height}" class="chart">
+<svg {width} {height} viewBox={`0 0 ${width} ${height}`} class="chart">
   <g transform="translate({width / 2} {height / 2.3 })">
     {#each pieData as d, i (d.data.tone)}
       <path
@@ -119,4 +139,17 @@
   .fill-black-100 {
     fill: #1E1E1E;
   }
+
+  @media only screen and (max-width: 1000px) {
+    .pie-chart-container {
+      margin: 3rem auto;
+      width: 90%;
+    }
+
+    .chart {
+      margin: auto;
+    }
+  }
+
+  
 </style>

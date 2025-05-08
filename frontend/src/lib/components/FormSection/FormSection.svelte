@@ -51,4 +51,23 @@
         padding-bottom: 1.5rem;
     }
 
+    @media only screen and (max-width: 1150px) {
+        .form-section {
+            flex-direction: column;
+            width: 90%;
+        }
+
+        article {
+            width: 70%;
+            margin: auto;
+        }
+    }
+
+    @media only screen and (max-width: 1150px) {
+
+        article {
+            display: none;
+        }
+    }
+
 </style>
