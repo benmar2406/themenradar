@@ -43,13 +43,6 @@ async function sentiment(topic, text) {
   };
 }
 
-const allowedOrigins = [process.env.CLIENT_ORIGIN].filter(Boolean);
-
-// Optionally keep the localhost origin when NODE_ENV !== "production"
-if (process.env.NODE_ENV !== 'production') {
-  app.use(cors({ origin: 'http://localhost:5173' }));
-}
-
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // absolute path to the Vite build output (frontend/dist)
@@ -57,16 +50,6 @@ const frontendDir = path.join(__dirname, '../frontend/build');
 
 app.use(express.static(frontendDir));                // serve JS/CSS/assets
 
-app.use(
-  cors({
-    origin(origin, cb) {
-      // allow same-origin requests automatically
-      if (!origin || origin === `https://${req.headers.host}`) return cb(null, true);
-      if (allowedOrigins.includes(origin))                  return cb(null, true);
-      cb(new Error('Not allowed by CORS'));
-    }
-  })
-);
 
 app.post("/analyze", async (req, res) => {
   try {
