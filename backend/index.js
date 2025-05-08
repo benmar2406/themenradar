@@ -4,7 +4,16 @@ import dotenv from "dotenv";
 import path from "path";
 import { fileURLToPath } from "url";  
 
-dotenv.config();
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+// absolute path to the Vite build output (frontend/dist)
+const frontendDir = path.join(__dirname, '../frontend/build');
+
+dotenv.config({
+  path: path.join(__dirname, '.env')
+});
+console.log("process.cwd():", process.cwd());
+console.log("__dirname:", path.dirname(fileURLToPath(import.meta.url)));
 
 const app = express();
 app.use(express.json());
@@ -13,8 +22,8 @@ const HF_ENDPOINT =
   "https://api-inference.huggingface.co/models/MoritzLaurer/DeBERTa-v3-base-mnli-fever-anli"; //facebook/bart-large-mnli
 const HF_HEADERS  = { Authorization: `Bearer ${process.env.HF_TOKEN}` };
 const GNEWS_URL   = "https://gnews.io/api/v4/search";
-
-
+console.log(process.env.HF_TOKEN)
+console.log(HF_HEADERS)
 async function sentiment(topic, text) {
   const payload = {
     inputs: text,
@@ -42,10 +51,7 @@ async function sentiment(topic, text) {
   };
 }
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-// absolute path to the Vite build output (frontend/dist)
-const frontendDir = path.join(__dirname, '../frontend/build');
 
 app.use(express.static(frontendDir));                // serve JS/CSS/assets
 
@@ -74,6 +80,7 @@ app.post("/analyze-media", async (req, res) => {
                             sort: "relevance", from, token: process.env.GNEWS_API_KEY });
     const relResp = await fetch(`${GNEWS_URL}?${relParams}`);
     const rel = (await relResp.json()).articles || [];
+    console.log(process.env.GNEWS_API_KEY)
     if (!rel.length) return res.status(404).json({ error: "No articles found" });
 
     // bucket by month and attach sentiment
