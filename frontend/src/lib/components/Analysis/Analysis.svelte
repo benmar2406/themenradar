@@ -1,6 +1,7 @@
 <script>
     import ResultsVisualization from "../ResultsVisualization/Charts/ResultsVisualization.svelte";
     import FormSection from "../FormSection/FormSection.svelte";
+    
 
     let topic = $state('Thema');
     let resolvedTopic = $state('')
@@ -15,7 +16,8 @@
     let resultData = $state(null);
     let statusOk =  $state(false);
 
-    const API = import.meta.env.VITE_API_BASE;
+    //const API = import.meta.env.VITE_API_BASE;
+
 
     async function analyze(topic, text, route) {
         loading = true;
@@ -27,7 +29,7 @@
                 payload.text = text;
             }
 
-            const res = await fetch(`${API}/${route}`, {
+            const res = await fetch(`/${route}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
