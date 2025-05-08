@@ -4,7 +4,7 @@
 
     let { topArticle  } = $props();
 
-    let publishedDate = new SvelteDate(topArticle.article.publishedDate).toLocaleDateString("de-DE");
+    let publishedDate = new SvelteDate(topArticle.article.publishedAt).toLocaleDateString("de-DE");
     let topLabel = $state(topArticle.analysis.topLabel.split(' ')[0]);
     let tonality = $state('')
     
@@ -30,7 +30,7 @@
     <h3 class="part-title">Relevantester Artikel zum Thema</h3>
     <div>
         <p><span>Titel:</span> {topArticle.article.title}</p>
-        <p><span>Medium:</span> {topArticle.article.source}</p>
+        <p><span>Medium:</span> {topArticle.article.source.name}</p>
         <p><span>Veröffentlichung:</span> {publishedDate}</p>
         <a 
             href={topArticle.article.url} 

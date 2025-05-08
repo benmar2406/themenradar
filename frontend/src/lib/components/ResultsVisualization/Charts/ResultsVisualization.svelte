@@ -15,20 +15,27 @@
 
 
     $effect(() => {
-        if (resultData) {
-            pieChartData =  [
-                { tone: "positive", percentage: resultData?.summary_recent.percentages.positive ?? 0 },
-                { tone: "neutral",  percentage: resultData?.summary_recent.percentages.neutral  ?? 0 },
-                { tone: "negative", percentage: resultData?.summary_recent.percentages.negative ?? 0 }
-            ]
-            summary = resultData.summary_recent;
-            topArticle = resultData.results[0]
-        }
+    if (!resultData) return;
 
-        if (pieChartData && summary && topArticle) {
-            readyToScroll = true;
-        }
-    });
+    const newPieChartData = [
+        { tone: "positive", percentage: resultData?.summary_recent?.percentages?.positive ?? 0 },
+        { tone: "neutral",  percentage: resultData?.summary_recent?.percentages?.neutral  ?? 0 },
+        { tone: "negative", percentage: resultData?.summary_recent?.percentages?.negative ?? 0 }
+    ];
+
+    const newSummary = resultData.summary_recent;
+    const newTopArticle = resultData.results?.[0];
+
+    const isEqual = JSON.stringify(pieChartData) === JSON.stringify(newPieChartData);
+
+    if (!isEqual) {
+        pieChartData = newPieChartData;
+        summary = newSummary;
+        topArticle = newTopArticle;
+        readyToScroll = true;
+        console.log(topArticle)
+    }
+});
 
 
     $effect(() => {
@@ -82,7 +89,7 @@
     </div>
     
     <div class="results-visualization">
-        {#if pieChartData}
+        {#if  pieChartData && summary && topArticle}
         <Summary {summary}/>
         <PieChartTonality 
             data={pieChartData}

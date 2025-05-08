@@ -17,7 +17,7 @@
   // Color scale by tone
   const colorScale = scaleOrdinal()
     .domain(["positive", "neutral", "negative"])
-    .range(["#fff01c", "#FFF9B0", "#FFCC33"]);
+    .range(["#9DFF1C", "#FFF01C", "#FF7E1C"]);
 
   // Arc generators
   const arcGenerator = arc()
