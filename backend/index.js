@@ -2,6 +2,8 @@ import express from "express";
 import fetch from "node-fetch";
 import dotenv from "dotenv";
 import cors from 'cors';
+import path from "path";
+import { fileURLToPath } from "url";  
 
 dotenv.config();
 
@@ -47,6 +49,18 @@ const allowedOrigins = [process.env.CLIENT_ORIGIN];
 if (process.env.NODE_ENV !== "production") {
   allowedOrigins.push("http://localhost:5173");
 }
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+// absolute path to the Vite build output (frontend/dist)
+const frontendDir = path.join(__dirname, "../frontend/dist");
+
+app.use(express.static(frontendDir));                // serve JS/CSS/assets
+
+// SPA fallback: any GET not caught above returns index.html
+app.get("*", (_, res) =>
+  res.sendFile(path.join(frontendDir, "index.html"))
+);
 
 app.use(
   cors({
