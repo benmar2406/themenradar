@@ -59,6 +59,12 @@ logRoute('/health', 'manual check');       // 👈 prints safely
 
 // ↓↓↓  whichever line is still bad will explode *right here*
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+// absolute path to the Vite build output (frontend/dist)
+const frontendDir = path.join(__dirname, '../frontend/build');
+
+app.use(express.static(frontendDir));                // serve JS/CSS/assets
 
 app.use(
   cors({
@@ -70,14 +76,6 @@ app.use(
     optionsSuccessStatus: 200
   })
 );
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-
-// absolute path to the Vite build output (frontend/dist)
-const frontendDir = path.join(__dirname, '../frontend/build');
-
-app.use(express.static(frontendDir));                // serve JS/CSS/assets
-
 
 app.post("/analyze", async (req, res) => {
   try {
