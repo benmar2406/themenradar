@@ -5,6 +5,13 @@ import { sveltekit } from '@sveltejs/kit/vite';
 import { defineConfig } from 'vite';
 
 export default defineConfig({
+	server: {
+		proxy: {
+		  '/analyze': 'http://localhost:5000',
+		  '/analyze-media': 'http://localhost:5000'
+		}
+	  },
+
 	plugins: [
 		tailwindcss(),
 		sveltekit(),
