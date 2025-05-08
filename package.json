@@ -15,7 +15,7 @@
     "dev:backend":  "nodemon backend/index.js",
 
     "build:frontend": "npm --prefix frontend run build",
-    "build":          "npm install concurrently && cd frontend && npm install && run build",
+    "build":          "npm install concurrently && cd frontend && npm install && npm run build",
 
     "start": "node backend/index.js"
   },
