@@ -1,5 +1,9 @@
-import adapter from '@sveltejs/adapter-auto';
+// frontend/svelte.config.js
+import adapter from '@sveltejs/adapter-static';
 
-const config = { kit: { adapter: adapter() } };
-
-export default config;
+export default {
+  kit: {
+    adapter: adapter({ fallback: 'index.html' }),   // SPA mode
+    prerender: { entries: [] }                      // skip crawling
+  }
+};

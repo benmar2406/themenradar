@@ -43,24 +43,13 @@ async function sentiment(topic, text) {
   };
 }
 
-const allowedOrigins = [process.env.CLIENT_ORIGIN];
+const allowedOrigins = [process.env.CLIENT_ORIGIN].filter(Boolean);
 
 // Optionally keep the localhost origin when NODE_ENV !== "production"
 if (process.env.NODE_ENV !== "production") {
   allowedOrigins.push("http://localhost:5173");
 }
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-
-// absolute path to the Vite build output (frontend/dist)
-const frontendDir = path.join(__dirname, "../frontend/dist");
-
-app.use(express.static(frontendDir));                // serve JS/CSS/assets
-
-// SPA fallback: any GET not caught above returns index.html
-app.get("*", (_, res) =>
-  res.sendFile(path.join(frontendDir, "index.html"))
-);
 
 app.use(
   cors({
@@ -72,6 +61,14 @@ app.use(
     optionsSuccessStatus: 200
   })
 );
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+// absolute path to the Vite build output (frontend/dist)
+const frontendDir = path.join(__dirname, '../frontend/build');
+
+app.use(express.static(frontendDir));                // serve JS/CSS/assets
+
 
 app.post("/analyze", async (req, res) => {
   try {
@@ -158,6 +155,13 @@ app.post("/analyze-media", async (req, res) => {
     res.status(500).json({ error: e.message });
   }
 });
+
+app.get("/health", (_, res) => res.send("ok"));
+
+// SPA fallback: any GET not caught above returns index.html
+app.get("*", (_, res) =>
+  res.sendFile(path.join(frontendDir, "index.html"))
+);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
