@@ -69,11 +69,11 @@ app.use(express.static(frontendDir));                // serve JS/CSS/assets
 app.use(
   cors({
     origin(origin, cb) {
-      // requests from tools like curl have no Origin header → allow them
-      if (!origin || allowedOrigins.includes(origin)) return cb(null, true);
-      cb(new Error("Not allowed by CORS"));
-    },
-    optionsSuccessStatus: 200
+      // allow same-origin requests automatically
+      if (!origin || origin === `https://${req.headers.host}`) return cb(null, true);
+      if (allowedOrigins.includes(origin))                  return cb(null, true);
+      cb(new Error('Not allowed by CORS'));
+    }
   })
 );
 
