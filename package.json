@@ -1,17 +1,27 @@
 {
-    "name": "themenradar",
-    "version": "1.0.0",
-  
-    "scripts": {
-      "dev":          "concurrently \"npm run dev:frontend\" \"npm run dev:backend\"",
-      "dev:frontend": "npm --prefix frontend run dev",
-      "dev:backend":  "npm --prefix backend  run dev",
-      "build": "npm --prefix frontend run build",
-      "start": "node backend/index.js"
-    },
-  
-    "devDependencies": {
-      "concurrently": "^8.2.2"
-    }
+  "name": "themenradar",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
+
+  "scripts": {
+    "dev":          "concurrently \"npm run dev:frontend\" \"npm run dev:backend\"",
+    "dev:frontend": "npm --prefix frontend run dev",
+    "dev:backend":  "nodemon backend/index.js",
+
+    "build:frontend": "npm --prefix frontend run build",
+    "build":          "npm run build:frontend",
+
+    "start": "node backend/index.js"
+  },
+
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "nodemon": "^3.0.3"
   }
-  
+}
