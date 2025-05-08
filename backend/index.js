@@ -166,7 +166,7 @@ app.post("/analyze-media", async (req, res) => {
 app.get("/health", (_, res) => res.send("ok"));
 
 // SPA fallback: any GET not caught above returns index.html
-app.get("*", (_, res) =>
+app.get("/*", (_, res) =>
   res.sendFile(path.join(frontendDir, "index.html"))
 );
 
