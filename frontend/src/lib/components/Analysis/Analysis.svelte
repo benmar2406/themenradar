@@ -1,5 +1,5 @@
 <script>
-    import ResultsVisualization from "../ResultsVisualization/Charts/ResultsVisualization.svelte";
+    import ResultsVisualization from "../ResultsVisualization/ResultsVisualization.svelte";
     import FormSection from "../FormSection/FormSection.svelte";
     
 

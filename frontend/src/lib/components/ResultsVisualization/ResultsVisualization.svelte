@@ -1,9 +1,9 @@
 <script>
 	import { resolveRoute } from "$app/paths";
-    import PieChartTonality from "./PieChartTonality.svelte";
-    import LineChartHistorical from "./LineChartHistorical.svelte";
-    import Summary from "../Summary.svelte";
-    import TopArticle from "../TopArticle.svelte";
+    import PieChartTonality from "./Charts/PieChartTonality.svelte";
+    import LineChartHistorical from "./Charts/LineChartHistorical.svelte";
+    import Summary from "./Summary.svelte";
+    import TopArticle from "./TopArticle.svelte";
 
     let { resultData, topic, resolvedTopic } = $props();
     let element; 
@@ -85,7 +85,7 @@
     <div 
         class="bg"
         bind:this={element}>
-        <h2 class='results-title'>Deine Auswertung zum Thema: {resolvedTopic.charAt(0).toUpperCase() + resolvedTopic.slice(1).toLowerCase()}</h2>
+        <h2 class='results-title'>Deine Auswertung zum Thema: {resolvedTopic.charAt(0).toUpperCase() + resolvedTopic.slice(1)}</h2>
     </div>
     
     <div class="results-visualization">
