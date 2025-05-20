@@ -77,7 +77,6 @@ app.post("/analyze-media", async (req, res) => {
                             sort: "relevance", from, token: process.env.GNEWS_API_KEY });
     const relResp = await fetch(`${GNEWS_URL}?${relParams}`);
     const rel = (await relResp.json()).articles || [];
-    console.log(process.env.GNEWS_API_KEY)
     if (!rel.length) return res.status(404).json({ error: "No articles found" });
 
     // bucket by month and attach sentiment

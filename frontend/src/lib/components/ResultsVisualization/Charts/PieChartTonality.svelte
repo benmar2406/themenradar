@@ -7,7 +7,7 @@
   import { innerWidth, innerHeight } from 'svelte/reactivity/window';
 
   // Svelte 5: access reactive props
-  let { data, topic, resolvedTopic } = $props();
+  let { data } = $props();
 
   let pieData = $state();
   let isSmallScreen = $state();
@@ -25,9 +25,6 @@
       width = 360;
       outerRadiusFactor =  0.8;
     };
-    console.log(isSmallScreen)
-    console.log(width)
-    console.log(height)
   })
 
   $effect(() => {

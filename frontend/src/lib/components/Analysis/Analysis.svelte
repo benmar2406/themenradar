@@ -1,9 +1,8 @@
 <script>
     import ResultsVisualization from "../ResultsVisualization/ResultsVisualization.svelte";
     import FormSection from "../FormSection/FormSection.svelte";
-    
+    import { topic } from "../shared";
 
-    let topic = $state('Thema');
     let resolvedTopic = $state('')
     let text = $state('');
     let error = $state(null);
@@ -64,7 +63,6 @@
 </script>
 <FormSection
     {analyze}
-    bind:topic={topic}
     {text}
     {error}
     {loading}
@@ -76,5 +74,4 @@
 <ResultsVisualization 
     resultData={result} 
     {resolvedTopic}
-    bind:topic={topic}
     />

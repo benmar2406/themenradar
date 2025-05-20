@@ -3,7 +3,6 @@
     import { fade } from 'svelte/transition';
     let { 
         analyze,
-        topic = $bindable(),
         text,
         error,
         loading,
@@ -49,7 +48,6 @@
         <div>
             <Form 
                 {analyze} 
-                bind:topic={topic} 
                 {text}
                 {loading}
                 {ownTextSelected}

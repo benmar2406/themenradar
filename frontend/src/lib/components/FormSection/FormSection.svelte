@@ -3,7 +3,6 @@
 
     let { 
         analyze,
-        topic = $bindable(),
         text,
         error,
         loading,
@@ -18,7 +17,6 @@
 <section class="form-section">
     <FormContainer 
         {analyze}
-        bind:topic={topic}
         {text}
         {error}
         {loading}

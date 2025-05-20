@@ -5,7 +5,7 @@
     import Summary from "./Summary.svelte";
     import TopArticle from "./TopArticle.svelte";
 
-    let { resultData, topic, resolvedTopic } = $props();
+    let { resultData, resolvedTopic } = $props();
     let element; 
 
     let pieChartData = $state(null);
@@ -93,8 +93,6 @@
         <Summary {summary}/>
         <PieChartTonality 
             data={pieChartData}
-            {topic} 
-            {resolvedTopic}
         />
         <LineChartHistorical/>
         <TopArticle 
