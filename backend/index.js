@@ -16,8 +16,7 @@ dotenv.config({
 const app = express();
 app.use(express.json());
 
-const HF_ENDPOINT =
-  "https://api-inference.huggingface.co/models/facebook/bart-large-mnli"; // MoritzLaurer/DeBERTa-v3-base-mnli-fever-anli
+const HF_ENDPOINT = "https://api-inference.huggingface.co/models/facebook/bart-large-mnli"; // MoritzLaurer/DeBERTa-v3-base-mnli-fever-anli
 const HF_HEADERS  = { Authorization: `Bearer ${process.env.HF_TOKEN}` };
 const GNEWS_URL   = "https://gnews.io/api/v4/search";
 
