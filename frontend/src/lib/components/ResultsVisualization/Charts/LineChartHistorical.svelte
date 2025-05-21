@@ -111,7 +111,7 @@
     });
   </script>
   
-  <div class="item-container">
+  <figure class="item-container">
     <h3>Entwicklung des Sentiments zum Thema über die Zeit</h3>
     <div class="wrapper">
       {#if width && xScale && yScale && linePositive && lineNeutral && lineNegative}
@@ -149,17 +149,15 @@
           </g>
           </svg>
       {/if}
-    </div>
-    <div>
-      <div class="legend-items">
+        </div>
+      <figcaption class="legend-items">
         {#each colors as color}
           <div class="legend-item">
             <div class="color-legend" style="background-color: {color.color}"></div><span>{color.label}</span>
           </div>
         {/each}
-      </div>
-    </div>
-  </div>
+      </figcaption>
+  </figure>
   
   <style>
     .wrapper {

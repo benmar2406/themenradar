@@ -4,7 +4,7 @@ let { summary } = $props();
 
 </script>
 
-<div class="summary-container item-container">
+<div class="item-container">
     <h3 class="part-title">Key Facts</h3>
     <div class="summaries">
         <div>
@@ -104,7 +104,7 @@ let { summary } = $props();
             width: 95%;
         }
 
-        .summary-container {
+        .item-container {
             width: 95%;
             margin: auto;
         }  
