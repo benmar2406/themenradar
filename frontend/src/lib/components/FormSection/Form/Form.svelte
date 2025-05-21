@@ -87,10 +87,12 @@
             margin: 4rem auto;
             display: flex;
             flex-direction: column;
+            justify-items: flex-start;
+            justify-content: flex-start;
         }
 
         input, textarea {
-            margin: 1rem auto;
+            margin: 0.5rem auto;
             height: 3rem;
             width: 100%;
 
@@ -98,6 +100,7 @@
 
         #topic {
             width: 80%;
+             margin: 0.5rem auto;
         }
 
         button {
@@ -116,6 +119,6 @@
             margin: 1rem auto;
             display: inline-block;
         }
-  }
+    }
 
 </style>

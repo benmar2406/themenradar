@@ -48,4 +48,11 @@
         font-weight: 600;   
     }
 
+    @media only screen and (max-width: 1000px) {
+    .item-container {
+      margin: 3rem auto;
+      width: 85%;
+    }
+  }
+
 </style>
