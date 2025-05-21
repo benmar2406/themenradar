@@ -5,6 +5,8 @@
     import { axisBottom, axisLeft } from 'd3-axis';
     import { draw } from 'svelte/transition';
 
+    //let { rawData } = $props();
+
     const colors = [
       { label: 'positiv', color: '#9DFF1C' }, 
       { label: 'neutral', color: '#FFF01C' },
@@ -18,12 +20,12 @@
   
     // Raw data with full ISO datetime strings
     const rawData = {
-      "2024-12-01T00:00:00.000Z": { positive: 38.1, neutral: 49.2, negative: 12.7 },
-      "2025-01-01T00:00:00.000Z": { positive: 34.4, neutral: 53.1, negative: 12.5 },
-      "2025-02-01T00:00:00.000Z": { positive: 36.6, neutral: 52.2, negative: 11.2 },
-      "2025-03-01T00:00:00.000Z": { positive: 32.8, neutral: 54.9, negative: 12.3 },
-      "2025-04-01T00:00:00.000Z": { positive: 29.7, neutral: 57.8, negative: 12.5 },
-      "2025-05-01T00:00:00.000Z": { positive: 41.5, neutral: 46.2, negative: 12.3 }
+      "2024-12-01T00:00:00.000Z": { positive: 60.1, neutral: 12.2, negative: 12.7 },
+      "2025-01-01T00:00:00.000Z": { positive: 56.4, neutral: 13.1, negative: 15.5 },
+      "2025-02-01T00:00:00.000Z": { positive: 50.6, neutral: 11.2, negative: 20.2 },
+      "2025-03-01T00:00:00.000Z": { positive: 53.8, neutral: 13.9, negative: 25.3 },
+      "2025-04-01T00:00:00.000Z": { positive: 50.7, neutral: 12.8, negative: 30.5 },
+      "2025-05-01T00:00:00.000Z": { positive: 41.5, neutral: 12.2, negative: 37.3 }
     };
   
     const data_positive = Object.entries(rawData).map(([date, val]) => ({

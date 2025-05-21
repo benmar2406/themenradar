@@ -15,27 +15,28 @@
 
 
     $effect(() => {
-    if (!resultData) return;
+        if (!resultData) return;
 
-    const newPieChartData = [
-        { tone: "positive", percentage: resultData?.summary_recent?.percentages?.positive ?? 0 },
-        { tone: "neutral",  percentage: resultData?.summary_recent?.percentages?.neutral  ?? 0 },
-        { tone: "negative", percentage: resultData?.summary_recent?.percentages?.negative ?? 0 }
-    ];
+        const newPieChartData = [
+            { tone: "positive", percentage: resultData?.summary_recent?.percentages?.positive ?? 0 },
+            { tone: "neutral",  percentage: resultData?.summary_recent?.percentages?.neutral  ?? 0 },
+            { tone: "negative", percentage: resultData?.summary_recent?.percentages?.negative ?? 0 }
+        ];
 
-    const newSummary = resultData.summary_recent;
-    const newTopArticle = resultData.results?.[0];
 
-    const isEqual = JSON.stringify(pieChartData) === JSON.stringify(newPieChartData);
+        const newSummary = resultData.summary_recent;
+        const newTopArticle = resultData.results?.[0];
 
-    if (!isEqual) {
-        pieChartData = newPieChartData;
-        summary = newSummary;
-        topArticle = newTopArticle;
-        readyToScroll = true;
-        console.log(topArticle)
-    }
-});
+        const isEqual = JSON.stringify(pieChartData) === JSON.stringify(newPieChartData);
+
+        if (!isEqual) {
+            pieChartData = newPieChartData;
+            summary = newSummary;
+            topArticle = newTopArticle;
+            readyToScroll = true;
+            console.log(topArticle)
+        }
+    });
 
 
     $effect(() => {
@@ -94,7 +95,9 @@
         <PieChartTonality 
             data={pieChartData}
         />
-        <LineChartHistorical/>
+        <LineChartHistorical
+            rawData={resultData.monthly_percentages}
+        />
         <TopArticle 
             {topArticle} 
         />

@@ -70,8 +70,9 @@
     {newsSelected}
     {route}
     {result}
-    />
+/>
+
 <ResultsVisualization 
     resultData={result} 
     {resolvedTopic}
-    />
+/>
