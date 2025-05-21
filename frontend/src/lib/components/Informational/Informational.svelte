@@ -25,8 +25,7 @@
     .informational-article {    
         flex-basis: 40%;
         margin: 2.5rem;
-        margin-left: 6rem;
-
+        margin-left: 8rem;
     }
 
     .informational-image {
@@ -41,6 +40,10 @@
     @media only screen and (max-width: 900px) {
         .informational {
            display: block;
+        }
+
+        .informational-article {    
+            margin: 3rem;
         }
 
         .informational-image {

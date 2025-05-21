@@ -85,6 +85,7 @@
         padding: 0.3rem;
         align-items: center;
         justify-content: flex-start;
+        box-sizing: border-box;
     }
 
     .button-container button {
@@ -94,13 +95,14 @@
 
     @media only screen and (max-width: 1150px) {
         .form-container {
-            width: 80vw;
+            width: 95%;
             margin: auto;
             margin-bottom: 0.5rem;
         }
 
         .form-container h2 {
             text-align: center;
+            margin: auto;
         }
 
         .button-container {
@@ -124,6 +126,17 @@
         .form-container {
             padding: 0.5rem;
             margin: auto;
+        }
+
+        .button-container {
+            flex-direction: column;
+            margin: auto;
+            width: 100%;
+        }
+
+        .button-container button {
+            flex-basis: 100%;
+            width: 100%;
         }
     }
 </style>

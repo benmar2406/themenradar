@@ -96,10 +96,17 @@ let { summary } = $props();
     @media only screen and (max-width: 680px) {
         .summaries > div {
             height: 9rem;
-    }
-        
-    }
-    
+            width: 40%;
+            flex-basis: 40%;
+        }
 
+        .summaries {
+            width: 95%;
+        }
 
+        .summary-container {
+            width: 95%;
+            margin: auto;
+        }  
+    }
 </style>

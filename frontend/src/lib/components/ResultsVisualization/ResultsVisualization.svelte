@@ -138,6 +138,10 @@
             display: block;
             margin: auto;
         }
+
+        section {
+            width: 95%;
+        }
     }
 
     

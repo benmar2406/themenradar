@@ -86,9 +86,7 @@ button {
 
  button:hover, button.selected {
   background-color: #fff01c;
-
  }
-
 
  input:focus, textarea:focus {
   background-color: #fff01c;
@@ -105,4 +103,10 @@ button {
 
 .dark-bg {
   background-color:RGB(30, 30, 30, 0.8)  
+}
+
+@media only screen and (max-width: 670px) {
+  h2 {
+    font-size: 1.2rem;
+  }
 }

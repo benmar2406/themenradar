@@ -10,18 +10,15 @@
   let { data } = $props();
 
   let pieData = $state();
-  let isSmallScreen = $state();
   let width = $state(360);
   let height = $derived(width);
   let outerRadiusFactor =  $state(0.8);
 
   $effect(() => {
     if (innerWidth.current <= 1000) {
-      isSmallScreen = true;
       width = 500;
       outerRadiusFactor =  0.8;
     } else {
-      isSmallScreen = false;
       width = 360;
       outerRadiusFactor =  0.8;
     };
@@ -76,6 +73,7 @@
     };
   };
 </script>
+
 <div class="pie-chart-container">
 <h3 class="pie-chart-title">Verteilung der Stimmung</h3>
 <svg {width} {height} viewBox={`0 0 ${width} ${height}`} class="chart">

@@ -90,8 +90,9 @@
         }
 
         input, textarea {
-            margin: 0.2rem auto;
+            margin: 1rem auto;
             height: 3rem;
+            width: 100%;
 
         }
 
@@ -106,7 +107,14 @@
 
     @media only screen and (max-width: 550px) {
         button {
-            padding: 1rem;
+            padding: 0.8rem;
+            margin: 0.4rem auto;
+        }
+
+        input {
+            width: 100%;
+            margin: 1rem auto;
+            display: inline-block;
         }
   }
 

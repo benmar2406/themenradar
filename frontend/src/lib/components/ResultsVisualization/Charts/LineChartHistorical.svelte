@@ -14,7 +14,7 @@
     let width = $state(500);
     const height = 300;
     const margin = { top: 10, right: 10, bottom: 30, left: 40 };
-    let innerWidth = width - margin.left - margin.right;
+    let innerWidth = $derived(width - margin.left - margin.right);
   
     // Raw data with full ISO datetime strings
     const rawData = {
@@ -46,8 +46,13 @@
       month: 'long'
     });
   
-    let xScale, yScale, xAxisTicks = [], yAxisTicks = [];
-    let linePositive, lineNeutral, lineNegative;
+    let xScale = $state();
+    let yScale = $state();
+    let xAxisTicks = $state([]); 
+    let yAxisTicks = $state([]); 
+    let linePositive = $state();
+    let lineNeutral = $state();
+    let lineNegative = $state();
   
     $effect(() => {
       if (!width || data_positive.length === 0) return;
@@ -96,9 +101,14 @@
   
   <div class="item-container">
     <h3>Entwicklung des Sentiments zum Thema über die Zeit</h3>
-    <div class="wrapper" bind:clientWidth={width}>
+    <div class="wrapper">
       {#if width && xScale && yScale && linePositive && lineNeutral && lineNegative}
-        <svg {width} {height}>
+        <svg width="100%"
+          height="auto"
+          viewBox={`0 0 ${width} ${height}`}
+          preserveAspectRatio="xMidYMid meet"
+          class="chart"
+        >
           <!-- Lines -->
           <path d={linePositive} stroke="#9DFF1C" fill="none" stroke-width="3.5" in:draw={{ duration: 1200 }} />
           <path d={lineNeutral} stroke="#FFF01C" fill="none" stroke-width="3.5" in:draw={{ duration: 1200 }} />
@@ -141,7 +151,9 @@
   
   <style>
     .wrapper {
-      width: 100%;
+      display: block;
+  max-width: 100%;
+  height: auto;
     }
   
     text {
@@ -173,6 +185,8 @@
       display: inline-block;
       margin: 0.3rem;
     }
+
+
   </style>
 
 
