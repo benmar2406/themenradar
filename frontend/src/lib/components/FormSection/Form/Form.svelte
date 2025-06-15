@@ -1,21 +1,22 @@
 <script>
     import Spinner from "../../Spinner/Spinner.svelte";
     import { fade } from "svelte/transition";
-    import { topic } from "../../shared"
+    import { topic, text } from "../../shared";
+    import { ownTextSelected, route } from "../../shared";
 
-    let { analyze, text, loading, ownTextSelected, newsSelected, route } = $props();
+    let { analyze, loading, newsSelected } = $props();
 
 
     function handleSubmit(event) {
         event.preventDefault();
-        analyze($topic, text, route); 
+        analyze($topic, $text, $route); 
   }
 
 
   let readyToSubmit = $state(false)
 
     $effect(() => {
-        if ((ownTextSelected && $topic.trim().length > 0 && text.trim().length > 0) || (newsSelected && $topic.trim().length > 0)) {
+        if (($ownTextSelected && $topic.trim().length > 0 && $text.trim().length > 0) || (newsSelected && $topic.trim().length > 0)) {
             readyToSubmit = true;
         } else {
             readyToSubmit = false;
@@ -27,9 +28,9 @@
 <form onsubmit={handleSubmit}>
     <label for="topic">Gebe dein Thema ein:</label><br>
     <input bind:value={$topic} type="text" id="topic" name="topic"><br>
-    {#if ownTextSelected}
+    {#if $ownTextSelected}
         <textarea 
-            bind:value={text} 
+            bind:value={$text} 
             transition:fade
             placeholder="Gebe einen Text über das Thema ein." 
             type="text" 

@@ -1,34 +1,34 @@
 <script>
     import ResultsVisualization from "../ResultsVisualization/ResultsVisualization.svelte";
     import FormSection from "../FormSection/FormSection.svelte";
-    import { topic } from "../shared";
+    import { topic, text, ownTextSelected, route } from "../shared";
 
     let resolvedTopic = $state('')
-    let text = $state('');
     let error = $state(null);
     let loading = $state(false);
     let tonality = $state('');
-    let route = $state('');
     let result = $state(null);
     let newsSelected = $state(false);
-    let ownTextSelected = $state(false);
     let resultData = $state(null);
     let statusOk =  $state(false);
 
     //const API = import.meta.env.VITE_API_BASE;
 
 
-    async function analyze(topic, text, route) {
+    async function analyze(topic, text, $route) {
         loading = true;
         error = null;
         
         try {
-            const payload = { topic };
+            let payload;
             if (ownTextSelected) {
-                payload.text = text;
+                payload = { topic, text }; 
+            } else {
+                payload = { topic };
             }
+            console.log(payload);
 
-            const res = await fetch(`/${route}`, {
+            const res = await fetch(`/${$route}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
@@ -63,12 +63,9 @@
 </script>
 <FormSection
     {analyze}
-    {text}
     {error}
     {loading}
-    {ownTextSelected}
     {newsSelected}
-    {route}
     {result}
 />
 

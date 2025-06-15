@@ -4,7 +4,7 @@
   import { line, curveBasis } from 'd3-shape';
   import { axisBottom, axisLeft } from 'd3-axis';
   import { draw } from 'svelte/transition';
-  import { innerWidth, innerHeight } from 'svelte/reactivity/window';
+  import { innerWidth } from 'svelte/reactivity/window';
 
 
   //let { rawData } = $props();
@@ -26,7 +26,6 @@
     };
   })
     const margin = { top: 10, right: 10, bottom: 30, left: 40 };
-    let innerWidthChart = $derived(width - margin.left - margin.right);
   
     // Raw data with full ISO datetime strings
     const rawData = {

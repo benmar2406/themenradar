@@ -1,14 +1,14 @@
 <script>
     import Form from "./Form.svelte";
     import { fade } from 'svelte/transition';
+    import { ownTextSelected, route } from "$lib/components/shared";
+
     let { 
         analyze,
         text,
         error,
         loading,
-        ownTextSelected,
         newsSelected,
-        route,
         result
     } = $props()
     
@@ -19,17 +19,18 @@
     const handleButtonClick = (index) => {
 
         selectedIndex = index;
-
         if (index === 0) {
-            ownTextSelected = true;
+            $ownTextSelected = true;
             newsSelected = false;
-            route = 'analyze'
+            $route = 'analyze'
         } else if (index === 1) {
             newsSelected = true;
-            ownTextSelected = false;
-            route = 'analyze-media'
+            $ownTextSelected = false;
+            $route = 'analyze-media'
         }
     }
+
+    $inspect(result)
 
 </script>
 
@@ -44,21 +45,22 @@
                 </button>
             {/each}
         </div>
-        {#if newsSelected === true || ownTextSelected === true}
+        {#if newsSelected === true || $ownTextSelected === true}
         <div>
             <Form 
                 {analyze} 
                 {text}
                 {loading}
-                {ownTextSelected}
                 {newsSelected}
-                {route}
             />
             <div>
                 {#if loading}
                     <p class="loading-text">Analysiere, das kann eine Weile dauern...</p>
                 {/if}
-        
+
+                {#if $ownTextSelected && result}
+                    <p>{result.topLabel}</p>
+                {/if}
                 {#if error}
                     {#if error.message === 'No articles found for this topic'}
                         <p>Keine Artikel zum Thema gefunden, versuche es mit einem anderen Begriff.</p>
@@ -66,6 +68,7 @@
                         <p>Fehler: {error.message}</p>
                     {/if}
                 {/if}
+
             </div>
         
         </div>

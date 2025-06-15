@@ -4,6 +4,7 @@
     import LineChartHistorical from "./Charts/LineChartHistorical.svelte";
     import Summary from "./Summary.svelte";
     import TopArticle from "./TopArticle.svelte";
+    import { ownTextSelected } from "../shared";
 
     let { resultData, resolvedTopic } = $props();
     let element; 
@@ -13,7 +14,8 @@
     let topArticle = $state(null);
     let readyToScroll = $state(false);
 
-
+    console.log("own")
+    $inspect($ownTextSelected)
     $effect(() => {
         if (!resultData) return;
 
@@ -82,28 +84,30 @@
 
 </script>
 
-<section>
-    <div 
-        class="bg"
-        bind:this={element}>
-        <h2 class='results-title'>Deine Auswertung zum Thema: {resolvedTopic.charAt(0).toUpperCase() + resolvedTopic.slice(1)}</h2>
-    </div>
-    
-    <div class="results-visualization">
-        {#if  pieChartData && summary && topArticle}
-        <Summary {summary}/>
-        <PieChartTonality 
-            data={pieChartData}
-        />
-        <LineChartHistorical
-            rawData={resultData.monthly_percentages}
-        />
-        <TopArticle 
-            {topArticle} 
-        />
-        {/if} 
-    </div>
-</section>
+{#if !$ownTextSelected}
+    <section>
+        <div 
+            class="bg"
+            bind:this={element}>
+            <h2 class='results-title'>Deine Auswertung zum Thema: {resolvedTopic.charAt(0).toUpperCase() + resolvedTopic.slice(1)}</h2>
+        </div>
+        
+        <div class="results-visualization">
+            {#if  pieChartData && summary && topArticle}
+            <Summary {summary}/>
+            <PieChartTonality 
+                data={pieChartData}
+            />
+            <LineChartHistorical
+                rawData={resultData.monthly_percentages}
+            />
+            <TopArticle 
+                {topArticle} 
+            />
+            {/if} 
+        </div>
+    </section>
+{/if}
 
 <style>
     section {

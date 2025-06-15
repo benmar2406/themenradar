@@ -8,7 +8,6 @@
         loading,
         ownTextSelected,
         newsSelected,
-        route,
         result,
     } = $props()
 
@@ -22,7 +21,6 @@
         {loading}
         {ownTextSelected}
         {newsSelected}
-        {route}
         {result}
     />
     <article>
