@@ -33,8 +33,10 @@ let { summary } = $props();
     .summaries {
         display: flex;
         flex-wrap: wrap;
+        margin: auto;
         margin-top: 4rem;
         width: 90%; 
+        
     }
 
     .summaries > div {
@@ -45,7 +47,6 @@ let { summary } = $props();
         margin: 0.4rem;
         box-sizing: border-box;
         border-radius: 10px;
-        height: 7rem;
     }
 
     .summary-title, .summary-number {

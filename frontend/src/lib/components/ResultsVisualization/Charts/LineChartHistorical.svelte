@@ -112,12 +112,9 @@
   
   <figure class="item-container">
     <h3>Entwicklung des Sentiments zum Thema über die Zeit</h3>
-    <div class="wrapper">
+    <div class="wrapper" bind:clientWidth={width}>
       {#if width && xScale && yScale && linePositive && lineNeutral && lineNegative}
-        <svg width="100%"
-          height="auto"
-          viewBox={`0 0 ${width} ${height}`}
-          preserveAspectRatio="xMidYMid meet"
+        <svg {width} {height}
           class="chart"
         >
           <!-- Lines -->
@@ -161,7 +158,7 @@
   <style>
     .wrapper {
       display: block;
-      max-width: 100%;
+      width: 90%;
       height: auto;
     }
   

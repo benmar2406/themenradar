@@ -24,9 +24,7 @@
     };
   })
 
-  $effect(() => {
-    
-  })
+
   // Color scale by tone
   const colorScale = scaleOrdinal()
     .domain(["positive", "neutral", "negative"])
@@ -73,10 +71,10 @@
     };
   };
 </script>
-
-<div class="pie-chart-container">
+<div class="item-container">
+<div class="pie-chart-container" bind:clientWidth={width}>
 <h3 class="pie-chart-title">Verteilung der Stimmung</h3>
-<svg {width} {height} viewBox={`0 0 ${width} ${height}`} class="chart">
+<svg {width} {height} class="chart">
   <g transform="translate({width / 2} {height / 2.3 })">
     {#each pieData as d, i (d.data.tone)}
       <path
@@ -112,19 +110,17 @@
   </g>
 </svg>
 </div>
+</div>
 
 <style>
 
   .pie-chart-container {
-    width: fit-content;
-    margin: 2rem;
+    width: 90%;
   }
 
   .chart {
-    max-width: 100%;
-    height: fit-content;
     display: block;
-    overflow: "visible";
+    overflow: visible;
   }
 
   .pie-chart-title {
@@ -137,8 +133,7 @@
 
   @media only screen and (max-width: 1000px) {
     .pie-chart-container {
-      margin: 3rem auto;
-      width: 90%;
+      width: 100%;
     }
 
     .chart {
