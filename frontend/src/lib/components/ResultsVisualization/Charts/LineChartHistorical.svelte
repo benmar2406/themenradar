@@ -25,7 +25,8 @@
       height = 300;
     };
   })
-    const margin = { top: 10, right: 10, bottom: 30, left: 40 };
+  
+  const margin = { top: 10, right: 10, bottom: 30, left: 40 };
   
     // Raw data with full ISO datetime strings
     const rawData = {
@@ -114,21 +115,26 @@
     <h3>Entwicklung des Sentiments zum Thema über die Zeit</h3>
     <div class="wrapper" bind:clientWidth={width}>
       {#if width && xScale && yScale && linePositive && lineNeutral && lineNegative}
-        <svg {width} {height}
-          class="chart"
-        >
+        <svg {width} {height} class="chart">
           <!-- Lines -->
           <path d={linePositive} stroke="#9DFF1C" fill="none" stroke-width="3.5" in:draw={{ duration: 1200 }} />
           <path d={lineNeutral} stroke="#FFF01C" fill="none" stroke-width="3.5" in:draw={{ duration: 1200 }} />
           <path d={lineNegative} stroke="#FF7E1C" fill="none" stroke-width="3.5" in:draw={{ duration: 1200 }} />
   
           <!-- X Axis -->
-          <g transform={`translate(0, ${height - margin.bottom})`}>
+          <g transform={`translate(0, ${height - margin.bottom})`} >
             <line x1={margin.left} x2={width - margin.right} y1={0} y2={0} stroke="#999" />
             {#each xAxisTicks as tick}
               <g transform={`translate(${xScale(tick.value)}, 0)`}>
                 <line y2="6" stroke="#999" />
-                <text y="20" text-anchor="middle" font-size="10">{tick.label}</text>
+                <text
+                  y="20"
+                  text-anchor="middle"
+                  font-size="10"
+                  transform={innerWidth.current <= 1000 ? 'rotate(90 0 20)' : ''}
+                >
+                  {tick.label}
+                </text>              
               </g>
             {/each}
           </g>
@@ -161,6 +167,10 @@
       width: 90%;
       height: auto;
     }
+
+    .chart {
+      overflow: visible;
+    }
   
     text {
       font-family: sans-serif;
@@ -176,7 +186,6 @@
       display: flex;
       align-items: center;
       margin: 0.2rem 1.3rem;
-
     }
 
     .legend-item span {
