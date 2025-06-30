@@ -75,7 +75,7 @@
 <div class="pie-chart-container" bind:clientWidth={width}>
 <h3 class="pie-chart-title">Verteilung der Stimmung</h3>
 <svg {width} {height} class="chart">
-  <g transform="translate({width / 2} {height / 2.3 })">
+  <g transform="translate({width / 2} {height / 2 })">
     {#each pieData as d, i (d.data.tone)}
       <path
         in:reveal={{ index: i }}

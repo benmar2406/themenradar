@@ -89,14 +89,14 @@
         }));
   
       yAxisTicks = axisLeft(yScale)
-        .ticks(6)
         .tickFormat(d => `${d}%`)
         .scale()
         .ticks()
         .map(t => ({
           value: t,
           label: `${t}%`
-        }));
+        }))
+        .filter((_, index) => index % 2 === 0); // Filtere, um nur jedes zweite Tick-Label zu behalten;
   
       const makeLine = (data) =>
         line()
@@ -136,14 +136,14 @@
           <!-- Y Axis -->
           <g>
             <line x1={margin.left} x2={margin.left} y1={margin.top} y2={height - margin.bottom} stroke="#999" />
-            {#each yAxisTicks as tick}
-              <g transform={`translate(0, ${yScale(tick.value)})`}>
-                <line x1={margin.left} x2={width - margin.right} stroke="#eee" />
-                <text x={margin.left - 8} dy="0.32em" text-anchor="end" font-size="10">{tick.label}</text>
-              </g>
+              {#each yAxisTicks as tick}
+                <g transform={`translate(0, ${yScale(tick.value)})`}>
+                  <line x1={margin.left} x2={width - margin.right} stroke="#eee" />
+                  <text x={margin.left - 8} dy="0.32em" text-anchor="end" font-size="10">{tick.label}</text>
+                </g>
             {/each}
           </g>
-          </svg>
+          </svg>  
       {/if}
         </div>
       <figcaption class="legend-items">
