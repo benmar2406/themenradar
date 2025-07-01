@@ -17,7 +17,7 @@
 
 	$effect(() => {
 		if (innerWidth.current <= 1000) {
-			height = 400;
+			height = 500;
 		} else {
 			height = 300;
 		}
@@ -195,7 +195,7 @@
 							<line y2="6" stroke="#999" />
 							<text
 								y="20"
-								text-anchor="middle"
+								text-anchor={innerWidth.current <= 1000 ? 'left' : "middle"}
 								font-size="10"
 								transform={innerWidth.current <= 1000 ? 'rotate(90 0 20)' : ''}
 							>
@@ -239,8 +239,7 @@
 <style>
 	.wrapper {
 		display: block;
-		width: 90%;
-		height: auto;
+		width: 95%;
 	}
 
 	.chart {
@@ -281,6 +280,10 @@
 			margin: 3rem auto;
 			width: 90%;
 		}
+
+    .wrapper {
+      height: 550px;
+    }
 
 		.chart {
 			margin: auto;
