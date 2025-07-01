@@ -72,8 +72,8 @@
   };
 </script>
 <div class="item-container">
-<div class="pie-chart-container" bind:clientWidth={width}>
 <h3 class="pie-chart-title">Verteilung der Stimmung</h3>
+<div class="pie-chart-container" bind:clientWidth={width}>
 <svg {width} {height} class="chart">
   <g transform="translate({width / 2} {height / 2 })">
     {#each pieData as d, i (d.data.tone)}
@@ -115,7 +115,8 @@
 <style>
 
   .pie-chart-container {
-    width: 90%;
+    width: 85%;
+    margin: auto;
   }
 
   .chart {

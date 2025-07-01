@@ -85,7 +85,6 @@
         display: flex;
         width: 90%;
         margin-bottom: 2rem;
-        padding: 0.3rem;
         align-items: center;
         justify-content: flex-start;
         box-sizing: border-box;
