@@ -1,5 +1,5 @@
 <script>
-  import { scaleUtc, scaleLinear } from 'd3-scale';
+  import { scaleUtc, scaleTime, scaleLinear } from 'd3-scale';
   import { extent } from 'd3-array';
   import { line, curveBasis, area } from 'd3-shape';
   import { axisBottom, axisLeft } from 'd3-axis';
@@ -112,24 +112,24 @@
     {#if width && xScale && yScale && linePositive && lineNeutral && lineNegative}
       <svg {width} {height} class="chart">
         <defs>
-  <!-- Gradient for positive area -->
-  <linearGradient id="gradientPositive" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="0%" stop-color="#9DFF1C" stop-opacity="0.6" />
-    <stop offset="100%" stop-color="#9DFF1C" stop-opacity="0" />
-  </linearGradient>
+        <!-- Gradient for positive area -->
+        <linearGradient id="gradientPositive" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#9DFF1C" stop-opacity="0.6" />
+          <stop offset="100%" stop-color="#9DFF1C" stop-opacity="0" />
+        </linearGradient>
 
-  <!-- Gradient for neutral area with stronger yellow -->
-  <linearGradient id="gradientNeutral" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="0%" stop-color="#FFEA00" stop-opacity="0.8" /> <!-- Brighter yellow and higher opacity -->
-    <stop offset="100%" stop-color="#FFEA00" stop-opacity="0.2" /> <!-- Slightly higher end opacity -->
-  </linearGradient>
+        <!-- Gradient for neutral area with stronger yellow -->
+        <linearGradient id="gradientNeutral" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#FFF01C" stop-opacity="0.9" /> <!-- Brighter yellow and higher opacity -->
+          <stop offset="100%" stop-color="#FFF01C" stop-opacity="0.2" /> <!-- Slightly higher end opacity -->
+        </linearGradient>
 
-  <!-- Gradient for negative area -->
-  <linearGradient id="gradientNegative" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="0%" stop-color="#FF7E1C" stop-opacity="0.6" />
-    <stop offset="100%" stop-color="#FF7E1C" stop-opacity="0" />
-  </linearGradient>
-</defs>
+        <!-- Gradient for negative area -->
+        <linearGradient id="gradientNegative" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#FF7E1C" stop-opacity="0.6" />
+          <stop offset="100%" stop-color="#FF7E1C" stop-opacity="0" />
+        </linearGradient>
+      </defs>
 
 
         <!-- Areas -->
