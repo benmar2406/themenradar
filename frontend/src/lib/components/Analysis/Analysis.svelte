@@ -26,8 +26,6 @@
             } else {
                 payload = { topic };
             }
-            console.log(payload);
-
             const res = await fetch(`/${$route}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -47,8 +45,6 @@
                     throw new Error(data.error || 'Ein Fehler ist aufgetreten.');
                 }
             }
-
-            console.log(statusOk)
 
         } catch (err) {
             error = err;
