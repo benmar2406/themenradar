@@ -14,8 +14,6 @@
     let topArticle = $state(null);
     let readyToScroll = $state(false);
 
-    console.log("own")
-    $inspect($ownTextSelected)
     $effect(() => {
         if (!resultData) return;
 
@@ -50,10 +48,9 @@
         }
     })
 
-    $inspect(readyToScroll);
 
 //mockup data for testing
-  /*const numbers = [
+ /* const numbers = [
         { tone: "positive", percentage: 20 },
         { tone: "neutral", percentage: 30 },
         { tone: "negative", percentage: 50 }

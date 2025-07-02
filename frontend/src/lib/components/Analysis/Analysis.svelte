@@ -48,6 +48,7 @@
 
         } catch (err) {
             error = err;
+            console.log(error)
 
         } finally {
             loading = false;
