@@ -38,6 +38,7 @@
                 statusOk = true;
 
             } else {
+                console.error('Error response:', data);
 
                 if (res.status === '404') {
                     throw new Error(data.error || 'Fehler: Es wurden keine Artikel gefunden.');
