@@ -42,7 +42,7 @@ let { summary } = $props();
     .summaries > div {
         flex-basis: 45%;
         gap: 1rem;
-        background-color: #FFF01C;
+        background-color: var(--primary);
         padding: 0.7rem;
         margin: 0.4rem;
         box-sizing: border-box;

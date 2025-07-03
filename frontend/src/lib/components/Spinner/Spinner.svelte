@@ -4,7 +4,7 @@
 <style>
 .spinner {
   border: 2px solid rgba(0, 0, 0, 0.1);
-  border-left-color: #4f46e5;
+  border-left-color: var(--accent); 
   border-radius: 50%;
   width: 1rem;
   height: 1rem;

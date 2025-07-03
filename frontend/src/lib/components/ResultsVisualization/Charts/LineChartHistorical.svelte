@@ -7,9 +7,9 @@
 	import { innerWidth } from 'svelte/reactivity/window';
 
 	const colors = [
-		{ label: 'positiv', color: '#9DFF1C' },
-		{ label: 'neutral', color: '#FFF01C' },
-		{ label: 'negativ', color: '#FF7E1C' }
+		{ label: 'positiv', color: '#FFD166' },
+		{ label: 'neutral', color: '#FFB74D' },
+		{ label: 'negativ', color: '#FF8A65' }
 	];
 
 	let width = $state(500);
@@ -66,31 +66,6 @@
 			.range([height - margin.bottom, margin.top])
 	);
 
-	let tickCount = $derived(Math.floor(width / 80));
-
-	let xAxisTicks = $derived(
-		axisBottom(xScale)
-			.ticks(tickCount)
-			.tickFormat(germanFormatter.format)
-			.scale()
-			.ticks()
-			.map((t) => ({
-				value: t,
-				label: germanFormatter.format(t)
-			}))
-	);
-
-	let yAxisTicks = $derived(
-		axisLeft(yScale)
-			.tickFormat((d) => `${d}%`)
-			.scale()
-			.ticks()
-			.map((t) => ({
-				value: t,
-				label: `${t}%`
-			}))
-			.filter((_, index) => index % 2 === 0)
-	);
 
 	const makeLine = (data) =>
 		line()
@@ -122,22 +97,20 @@
 				<defs>
 					<!-- Gradient for positive area -->
 					<linearGradient id="gradientPositive" x1="0" y1="0" x2="0" y2="1">
-						<stop offset="0%" stop-color="#9DFF1C" stop-opacity="0.6" />
-						<stop offset="100%" stop-color="#9DFF1C" stop-opacity="0" />
+						<stop offset="0%" stop-color="#FFD166" stop-opacity="0.6" />
+						<stop offset="100%" stop-color="#FFD166" stop-opacity="0" />
 					</linearGradient>
 
 					<!-- Gradient for neutral area with stronger yellow -->
 					<linearGradient id="gradientNeutral" x1="0" y1="0" x2="0" y2="1">
-						<stop offset="0%" stop-color="#FFF01C" stop-opacity="0.9" />
-						<!-- Brighter yellow and higher opacity -->
-						<stop offset="100%" stop-color="#FFF01C" stop-opacity="0.2" />
-						<!-- Slightly higher end opacity -->
+						<stop offset="0%" stop-color="#FFB74D" stop-opacity="0.9" />
+						<stop offset="100%" stop-color="#FFB74D" stop-opacity="0.2" />
 					</linearGradient>
 
 					<!-- Gradient for negative area -->
 					<linearGradient id="gradientNegative" x1="0" y1="0" x2="0" y2="1">
-						<stop offset="0%" stop-color="#FF7E1C" stop-opacity="0.6" />
-						<stop offset="100%" stop-color="#FF7E1C" stop-opacity="0" />
+						<stop offset="0%" stop-color="#FF8A65" stop-opacity="0.6" />
+						<stop offset="100%" stop-color="#FF8A65" stop-opacity="0" />
 					</linearGradient>
 				</defs>
 
@@ -145,21 +118,21 @@
 				<path
 					d={areaPositive}
 					fill="url(#gradientPositive)"
-					stroke="#9DFF1C"
+					stroke="#FFD166"
 					stroke-width="1"
 					in:draw={{ duration: 1200 }}
 				/>
 				<path
 					d={areaNeutral}
 					fill="url(#gradientNeutral)"
-					stroke="#FFF01C"
+					stroke="#FFB74D"
 					stroke-width="1"
 					in:draw={{ duration: 1200 }}
 				/>
 				<path
 					d={areaNegative}
 					fill="url(#gradientNegative)"
-					stroke="#FF7E1C"
+					stroke="#FF8A65"
 					stroke-width="1"
 					in:draw={{ duration: 1200 }}
 				/>
@@ -167,21 +140,21 @@
 				<!-- Lines -->
 				<path
 					d={linePositive}
-					stroke="#9DFF1C"
+					stroke="#FFD166"
 					fill="none"
 					stroke-width="3.5"
 					in:draw={{ duration: 1200 }}
 				/>
 				<path
 					d={lineNeutral}
-					stroke="#FFF01C"
+					stroke="#FFB74D"
 					fill="none"
 					stroke-width="3.5"
 					in:draw={{ duration: 1200 }}
 				/>
 				<path
 					d={lineNegative}
-					stroke="#FF7E1C"
+					stroke="#FF8A65"
 					fill="none"
 					stroke-width="3.5"
 					in:draw={{ duration: 1200 }}
@@ -190,17 +163,19 @@
 				<!-- X Axis -->
 				<g transform={`translate(0, ${height - margin.bottom})`}>
 					<line x1={margin.left} x2={width - margin.right} y1={0} y2={0} stroke="#999" />
-					{#each xAxisTicks as tick}
+					{#each xScale.ticks(6) as tick}
 						<g transform={`translate(${xScale(tick.value)}, 0)`}>
 							<line y2="6" stroke="#999" />
-							<text
-								y="20"
-								text-anchor={innerWidth.current <= 1000 ? 'left' : "middle"}
-								font-size="10"
-								transform={innerWidth.current <= 1000 ? 'rotate(90 0 20)' : ''}
-							>
-								{tick.label}
-							</text>
+							{#each xScale.ticks(3) as tick}
+								<text
+									x={xScale(tick)}
+									y="20"
+									text-anchor="middle"
+									font-size="10"
+								>
+									{tick.toLocaleString('de-DE', { month: 'short' })}
+								</text>
+							{/each}
 						</g>
 					{/each}
 				</g>
@@ -214,12 +189,23 @@
 						y2={height - margin.bottom}
 						stroke="#999"
 					/>
-					{#each yAxisTicks as tick}
+					{#each yScale.ticks(2) as tick}
 						<g transform={`translate(0, ${yScale(tick.value)})`}>
-							<line x1={margin.left} x2={width - margin.right} stroke="#eee" />
-							<text x={margin.left - 8} dy="0.32em" text-anchor="end" font-size="10"
-								>{tick.label}</text
-							>
+							{#if tick !== 0}
+								<line 
+									x1={margin.left} 
+									x2={width - margin.right}
+									y1={yScale(tick)}
+              						y2={yScale(tick)}
+									stroke="#eee" 
+								/>
+							{/if}
+							<text 
+                                y={yScale(tick)}
+								text-anchor="start" 
+								font-size="10"
+							>{tick}%
+							</text>
 						</g>
 					{/each}
 				</g>

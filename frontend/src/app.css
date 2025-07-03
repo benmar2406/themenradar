@@ -36,6 +36,13 @@
     font-style: italic;
   }
 
+  :root {
+    --primary: #FFD166;
+    --secondaryPostive: #FFB74D;
+    --secondaryNegative: #FF8A65;
+    --accent: #4338CA;
+  }
+
   html body {
     margin: 0;
     padding: 0;
@@ -74,7 +81,7 @@
 
 button {
     background-color: transparent;
-    border: solid 0.3rem #fff01c;
+    border: solid 0.3rem var(--primary);
     color: #1E1E1E;
     font-family: 'Poppins', sans-serif;
     text-decoration: none;
@@ -85,16 +92,18 @@ button {
  }
 
  button:hover, button.selected {
-  background-color: #fff01c;
+  background-color: var(--primary);
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
  }
 
  input:focus, textarea:focus {
-  background-color: #fff01c;
-  border-color: #fff01c;
+  background-color: var(--primary);
+  border-color: var(--primary);
 }
 
 *:focus {
-  outline: #fff01c;
+  outline: var(--primary);
 }
 
 .item-container  {

@@ -125,7 +125,7 @@
     }
 
     .bg {
-        background-color: #fff01c;
+        background-color: var( --primary);
         border-top-left-radius: 20px;
         border-top-right-radius: 20px;
     }

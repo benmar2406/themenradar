@@ -18,7 +18,7 @@
         margin: auto;
         width: 100%;
         text-align: center;
-        background-color: #fff01c;
+        background-color: var(--primary);
         box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; 
     }
 
