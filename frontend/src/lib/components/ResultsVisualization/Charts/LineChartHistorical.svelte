@@ -1,7 +1,7 @@
 <script>
 	import { scaleUtc, scaleTime, scaleLinear } from 'd3-scale';
 	import { extent } from 'd3-array';
-	import { line, curveBasis, area } from 'd3-shape';
+	import { line, curveBasis, curveStep, curveLinear, area } from 'd3-shape';
 	import { axisBottom, axisLeft } from 'd3-axis';
 	import { draw } from 'svelte/transition';
 	import { innerWidth } from 'svelte/reactivity/window';
@@ -71,14 +71,14 @@
 		line()
 			.x((d) => xScale(d.date))
 			.y((d) => yScale(d.value))
-			.curve(curveBasis)(data);
+			.curve(curveLinear)(data);
 
 	const makeArea = (data) =>
 		area()
 			.x((d) => xScale(d.date))
 			.y0(height - margin.bottom)
 			.y1((d) => yScale(d.value))
-			.curve(curveBasis)(data);
+			.curve(curveLinear)(data);
 
 	let linePositive = $derived(makeLine(data_positive));
 	let lineNeutral = $derived(makeLine(data_neutral));
@@ -119,21 +119,21 @@
 					d={areaPositive}
 					fill="url(#gradientPositive)"
 					stroke="#FFD166"
-					stroke-width="1"
+					stroke-width="0"
 					in:draw={{ duration: 1200 }}
 				/>
 				<path
 					d={areaNeutral}
 					fill="url(#gradientNeutral)"
 					stroke="#FFB74D"
-					stroke-width="1"
+					stroke-width="0"
 					in:draw={{ duration: 1200 }}
 				/>
 				<path
 					d={areaNegative}
 					fill="url(#gradientNegative)"
 					stroke="#FF8A65"
-					stroke-width="1"
+					stroke-width="0"
 					in:draw={{ duration: 1200 }}
 				/>
 
@@ -142,21 +142,21 @@
 					d={linePositive}
 					stroke="#FFD166"
 					fill="none"
-					stroke-width="3.5"
+					stroke-width="0"
 					in:draw={{ duration: 1200 }}
 				/>
 				<path
 					d={lineNeutral}
 					stroke="#FFB74D"
 					fill="none"
-					stroke-width="3.5"
+					stroke-width="0"
 					in:draw={{ duration: 1200 }}
 				/>
 				<path
 					d={lineNegative}
 					stroke="#FF8A65"
 					fill="none"
-					stroke-width="3.5"
+					stroke-width="0"
 					in:draw={{ duration: 1200 }}
 				/>
 
