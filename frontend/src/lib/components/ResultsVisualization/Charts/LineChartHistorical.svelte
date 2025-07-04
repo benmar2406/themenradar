@@ -1,8 +1,7 @@
 <script>
-	import { scaleUtc, scaleTime, scaleLinear } from 'd3-scale';
+	import { scaleUtc, scaleLinear } from 'd3-scale';
 	import { extent } from 'd3-array';
-	import { line, curveBasis, curveStep, curveLinear, area } from 'd3-shape';
-	import { axisBottom, axisLeft } from 'd3-axis';
+	import { line, area, curveLinear } from 'd3-shape';
 	import { draw } from 'svelte/transition';
 	import { innerWidth } from 'svelte/reactivity/window';
 
@@ -11,6 +10,46 @@
 		{ label: 'neutral', color: '#FFB74D' },
 		{ label: 'negativ', color: '#FF8A65' }
 	];
+
+	function createHoverPath(dPath, data, label, color) {
+	return {
+		d: dPath,
+		fill: 'transparent',
+		stroke: 'transparent',
+		'stroke-width': 30,
+		style: 'cursor: pointer',
+		onmouseover: (e) => {
+			updateTooltip(e, data, label, color);
+		},
+		onmousemove: (e) => {
+			updateTooltip(e, data, label, color);
+		},
+		onmouseleave: () => {
+			tooltip.visible = false;
+		}
+	};
+}
+
+function updateTooltip(e, data, label, color) {
+	const mouseX = e.offsetX;
+	const hoveredDate = xScale.invert(mouseX);
+
+	// Find nearest data point by date
+	const closest = data.reduce((a, b) =>
+		Math.abs(b.date - hoveredDate) < Math.abs(a.date - hoveredDate) ? b : a
+	);
+
+	tooltip = {
+		x: e.clientX,
+		y: e.clientY,
+		date: closest.date,
+		value: closest.value,
+		label,
+		color,
+		visible: true
+	};
+}
+
 
 	let width = $state(500);
 	let height = $state(300);
@@ -49,11 +88,6 @@
 		value: val.negative
 	}));
 
-	const germanFormatter = new Intl.DateTimeFormat('de-DE', {
-		year: 'numeric',
-		month: 'long'
-	});
-
 	let xScale = $derived(
 		scaleUtc()
 			.domain(extent(data_positive, (d) => d.date))
@@ -65,7 +99,6 @@
 			.domain([0, 100])
 			.range([height - margin.bottom, margin.top])
 	);
-
 
 	const makeLine = (data) =>
 		line()
@@ -87,6 +120,17 @@
 	let areaPositive = $derived(makeArea(data_positive));
 	let areaNeutral = $derived(makeArea(data_neutral));
 	let areaNegative = $derived(makeArea(data_negative));
+
+	// Tooltip state
+	let tooltip = $state({
+		x: 0,
+		y: 0,
+		date: null,
+		value: null,
+		label: '',
+		color: '',
+		visible: false
+	});
 </script>
 
 <figure class="item-container">
@@ -95,19 +139,14 @@
 		{#if width && xScale && yScale && linePositive && lineNeutral && lineNegative}
 			<svg {width} {height} class="chart">
 				<defs>
-					<!-- Gradient for positive area -->
 					<linearGradient id="gradientPositive" x1="0" y1="0" x2="0" y2="1">
 						<stop offset="0%" stop-color="#FFD166" stop-opacity="0.6" />
 						<stop offset="100%" stop-color="#FFD166" stop-opacity="0" />
 					</linearGradient>
-
-					<!-- Gradient for neutral area with stronger yellow -->
 					<linearGradient id="gradientNeutral" x1="0" y1="0" x2="0" y2="1">
 						<stop offset="0%" stop-color="#FFB74D" stop-opacity="0.9" />
 						<stop offset="100%" stop-color="#FFB74D" stop-opacity="0.2" />
 					</linearGradient>
-
-					<!-- Gradient for negative area -->
 					<linearGradient id="gradientNegative" x1="0" y1="0" x2="0" y2="1">
 						<stop offset="0%" stop-color="#FF8A65" stop-opacity="0.6" />
 						<stop offset="100%" stop-color="#FF8A65" stop-opacity="0" />
@@ -115,103 +154,67 @@
 				</defs>
 
 				<!-- Areas -->
-				<path
-					d={areaPositive}
-					fill="url(#gradientPositive)"
-					stroke="#FFD166"
-					stroke-width="0"
-					in:draw={{ duration: 1200 }}
-				/>
-				<path
-					d={areaNeutral}
-					fill="url(#gradientNeutral)"
-					stroke="#FFB74D"
-					stroke-width="0"
-					in:draw={{ duration: 1200 }}
-				/>
-				<path
-					d={areaNegative}
-					fill="url(#gradientNegative)"
-					stroke="#FF8A65"
-					stroke-width="0"
-					in:draw={{ duration: 1200 }}
-				/>
+				<path d={areaPositive} fill="url(#gradientPositive)" stroke="none" in:draw={{ duration: 1200 }} />
+				<path d={areaNeutral} fill="url(#gradientNeutral)" stroke="none" in:draw={{ duration: 1200 }} />
+				<path d={areaNegative} fill="url(#gradientNegative)" stroke="none" in:draw={{ duration: 1200 }} />
 
 				<!-- Lines -->
-				<path
-					d={linePositive}
-					stroke="#FFD166"
-					fill="none"
-					stroke-width="0"
-					in:draw={{ duration: 1200 }}
-				/>
-				<path
-					d={lineNeutral}
-					stroke="#FFB74D"
-					fill="none"
-					stroke-width="0"
-					in:draw={{ duration: 1200 }}
-				/>
-				<path
-					d={lineNegative}
-					stroke="#FF8A65"
-					fill="none"
-					stroke-width="0"
-					in:draw={{ duration: 1200 }}
-				/>
+				<path {...createHoverPath(linePositive, data_positive, 'positiv', '#FFD166')} />
+				<path {...createHoverPath(areaPositive, data_positive, 'positiv', '#FFD166')} />
 
-				<!-- X Axis -->
+				<!-- Neutral -->
+				<path {...createHoverPath(lineNeutral, data_neutral, 'neutral', '#FFB74D')} />
+				<path {...createHoverPath(areaNeutral, data_neutral, 'neutral', '#FFB74D')} />
+
+				<!-- Negative -->
+				<path {...createHoverPath(lineNegative, data_negative, 'negativ', '#FF8A65')} />
+				<path {...createHoverPath(areaNegative, data_negative, 'negativ', '#FF8A65')} />
+
+
+				<!-- Axis X -->
 				<g transform={`translate(0, ${height - margin.bottom})`}>
 					<line x1={margin.left} x2={width - margin.right} y1={0} y2={0} stroke="#999" />
 					{#each xScale.ticks(6) as tick}
-						<g transform={`translate(${xScale(tick.value)}, 0)`}>
-							<line y2="6" stroke="#999" />
-							{#each xScale.ticks(3) as tick}
-								<text
-									x={xScale(tick)}
-									y="20"
-									text-anchor="middle"
-									font-size="10"
-								>
-									{tick.toLocaleString('de-DE', { month: 'short' })}
-								</text>
-							{/each}
-						</g>
+						<text
+							x={xScale(tick)}
+							y="20"
+							text-anchor="middle"
+							font-size="10"
+						>
+							{tick.toLocaleDateString('de-DE', { month: 'short' })}
+						</text>
 					{/each}
 				</g>
 
-				<!-- Y Axis -->
+				<!-- Axis Y -->
 				<g>
-					<line
-						x1={margin.left}
-						x2={margin.left}
-						y1={margin.top}
-						y2={height - margin.bottom}
-						stroke="#999"
-					/>
+					<line x1={margin.left} x2={margin.left} y1={margin.top} y2={height - margin.bottom} stroke="#999" />
 					{#each yScale.ticks(2) as tick}
-						<g transform={`translate(0, ${yScale(tick.value)})`}>
-							{#if tick !== 0}
-								<line 
-									x1={margin.left} 
-									x2={width - margin.right}
-									y1={yScale(tick)}
-              						y2={yScale(tick)}
-									stroke="#eee" 
-								/>
-							{/if}
-							<text 
-                                y={yScale(tick)}
-								text-anchor="start" 
-								font-size="10"
-							>{tick}%
-							</text>
+						<g transform={`translate(0, ${yScale(tick)})`}>
+							<line x1={margin.left} x2={width - margin.right} y1={0} y2={0} stroke="#eee" />
+							<text x={margin.left - 10} y="4" font-size="10" text-anchor="end">{tick}%</text>
 						</g>
 					{/each}
 				</g>
 			</svg>
+
+			{#if tooltip.visible}
+				<div
+					class="tooltip"
+					style="
+						left: {tooltip.x + 15}px;
+						top: {tooltip.y + 15}px;
+						border-color: {tooltip.color};
+					"
+				>
+					<strong style="color: {tooltip.color}">{tooltip.label}</strong><br />
+					{tooltip.date.toLocaleDateString('de-DE', { month: 'long', year: 'numeric' })}<br />
+					Wert: {tooltip.value.toFixed(1)}%
+				</div>
+			{/if}
 		{/if}
 	</div>
+
 	<figcaption class="legend-items">
 		{#each colors as color}
 			<div class="legend-item">
@@ -227,32 +230,26 @@
 		display: block;
 		width: 95%;
 	}
-
 	.chart {
 		overflow: visible;
 	}
-
 	text {
 		font-family: sans-serif;
 		fill: #333;
 	}
-
 	.legend-items {
 		display: flex;
 		margin-top: 1.3rem;
 	}
-
 	.legend-item {
 		display: flex;
 		align-items: center;
 		margin: 0.2rem 1.3rem;
 	}
-
 	.legend-item span {
 		margin: 0;
 		font-size: 0.8rem;
 	}
-
 	.color-legend {
 		height: 1.2rem;
 		width: 1.2rem;
@@ -261,20 +258,31 @@
 		margin: 0.3rem;
 	}
 
+	.tooltip {
+		position: fixed;
+		background: white;
+		border: 1px solid;
+		padding: 0.5rem 0.75rem;
+		border-radius: 4px;
+		font-size: 0.75rem;
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+		pointer-events: none;
+		z-index: 10;
+		white-space: nowrap;
+		transition: opacity 0.2s ease;
+	}
+
 	@media only screen and (max-width: 1000px) {
 		.item-container {
 			margin: 3rem auto;
 			width: 90%;
 		}
-
-    .wrapper {
-      height: 550px;
-    }
-
+		.wrapper {
+			height: 550px;
+		}
 		.chart {
 			margin: auto;
 		}
-
 		.legend-items {
 			justify-content: center;
 		}
