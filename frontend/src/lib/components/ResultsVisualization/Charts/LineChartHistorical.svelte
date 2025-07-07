@@ -12,44 +12,43 @@
 	];
 
 	function createHoverPath(dPath, data, label, color) {
-	return {
-		d: dPath,
-		fill: 'transparent',
-		stroke: 'transparent',
-		'stroke-width': 30,
-		style: 'cursor: pointer',
-		onmouseover: (e) => {
-			updateTooltip(e, data, label, color);
-		},
-		onmousemove: (e) => {
-			updateTooltip(e, data, label, color);
-		},
-		onmouseleave: () => {
-			tooltip.visible = false;
-		}
-	};
-}
+		return {
+			d: dPath,
+			fill: 'transparent',
+			stroke: 'transparent',
+			'stroke-width': 10,
+			style: 'cursor: pointer',
+			onmouseover: (e) => {
+				updateTooltip(e, data, label, color);
+			},
+			onmousemove: (e) => {
+				updateTooltip(e, data, label, color);
+			},
+			onmouseleave: () => {
+				tooltip.visible = false;
+			}
+		};
+	}
 
-function updateTooltip(e, data, label, color) {
-	const mouseX = e.offsetX;
-	const hoveredDate = xScale.invert(mouseX);
+	function updateTooltip(e, data, label, color) {
+		const mouseX = e.offsetX;
+		const hoveredDate = xScale.invert(mouseX);
 
-	// Find nearest data point by date
-	const closest = data.reduce((a, b) =>
-		Math.abs(b.date - hoveredDate) < Math.abs(a.date - hoveredDate) ? b : a
-	);
+		// Find nearest data point by date
+		const closest = data.reduce((a, b) =>
+			Math.abs(b.date - hoveredDate) < Math.abs(a.date - hoveredDate) ? b : a
+		);
 
-	tooltip = {
-		x: e.clientX,
-		y: e.clientY,
-		date: closest.date,
-		value: closest.value,
-		label,
-		color,
-		visible: true
-	};
-}
-
+		tooltip = {
+			x: e.clientX,
+			y: e.clientY,
+			date: closest.date,
+			value: closest.value,
+			label,
+			color,
+			visible: true
+		};
+	}
 
 	let width = $state(500);
 	let height = $state(300);
@@ -160,16 +159,12 @@ function updateTooltip(e, data, label, color) {
 
 				<!-- Lines -->
 				<path {...createHoverPath(linePositive, data_positive, 'positiv', '#FFD166')} />
-				<path {...createHoverPath(areaPositive, data_positive, 'positiv', '#FFD166')} />
 
 				<!-- Neutral -->
 				<path {...createHoverPath(lineNeutral, data_neutral, 'neutral', '#FFB74D')} />
-				<path {...createHoverPath(areaNeutral, data_neutral, 'neutral', '#FFB74D')} />
 
 				<!-- Negative -->
 				<path {...createHoverPath(lineNegative, data_negative, 'negativ', '#FF8A65')} />
-				<path {...createHoverPath(areaNegative, data_negative, 'negativ', '#FF8A65')} />
-
 
 				<!-- Axis X -->
 				<g transform={`translate(0, ${height - margin.bottom})`}>
