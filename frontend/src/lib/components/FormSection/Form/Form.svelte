@@ -1,8 +1,7 @@
 <script>
     import Spinner from "../../Spinner/Spinner.svelte";
     import { fade } from "svelte/transition";
-    import { topic, text } from "../../shared";
-    import { ownTextSelected, route } from "../../shared";
+    import { ownTextSelected, route, topic, text } from "$lib/shared";
 
     let { analyze, loading, newsSelected } = $props();
 

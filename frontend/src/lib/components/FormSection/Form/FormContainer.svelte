@@ -1,7 +1,7 @@
 <script>
     import Form from "./Form.svelte";
     import { fade } from 'svelte/transition';
-    import { ownTextSelected, route } from "$lib/components/shared";
+    import { ownTextSelected, route } from "$lib/shared";
 
     let { 
         analyze,

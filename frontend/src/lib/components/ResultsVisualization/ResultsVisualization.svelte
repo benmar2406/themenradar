@@ -4,7 +4,7 @@
     import LineChartHistorical from "./Charts/LineChartHistorical.svelte";
     import Summary from "./Summary.svelte";
     import TopArticle from "./TopArticle.svelte";
-    import { ownTextSelected } from "../shared";
+    import { ownTextSelected } from "$lib/shared";
 
     let { resultData, resolvedTopic } = $props();
     let element; 

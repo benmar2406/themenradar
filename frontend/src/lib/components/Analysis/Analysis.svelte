@@ -1,7 +1,7 @@
 <script>
     import ResultsVisualization from "../ResultsVisualization/ResultsVisualization.svelte";
     import FormSection from "../FormSection/FormSection.svelte";
-    import { topic, text, ownTextSelected, route } from "../shared";
+    import { topic, text, ownTextSelected, route } from "$lib/shared";
 
     let resolvedTopic = $state('')
     let error = $state(null);
