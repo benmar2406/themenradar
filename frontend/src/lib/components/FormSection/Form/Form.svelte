@@ -1,10 +1,12 @@
 <script>
+    import { getContext } from 'svelte';
     import Spinner from "../../Spinner/Spinner.svelte";
     import { fade } from "svelte/transition";
     import { ownTextSelected, route, topic, text } from "$lib/shared";
 
-    let { analyze, loading, newsSelected } = $props();
+    let { loading, newsSelected } = $props();
 
+     const analyze = getContext('analyze');
 
     function handleSubmit(event) {
         event.preventDefault();

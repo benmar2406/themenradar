@@ -4,7 +4,6 @@
     import { ownTextSelected, route } from "$lib/shared";
 
     let { 
-        analyze,
         text,
         error,
         loading,
@@ -30,8 +29,6 @@
         }
     }
 
-    $inspect(result)
-
 </script>
 
     <div class="form-container">
@@ -48,7 +45,6 @@
         {#if newsSelected === true || $ownTextSelected === true}
         <div>
             <Form 
-                {analyze} 
                 {text}
                 {loading}
                 {newsSelected}

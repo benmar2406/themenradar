@@ -1,6 +1,7 @@
 <script>
     import ResultsVisualization from "../ResultsVisualization/ResultsVisualization.svelte";
     import FormSection from "../FormSection/FormSection.svelte";
+    import { setContext } from 'svelte';
     import { topic, text, ownTextSelected, route } from "$lib/shared";
 
     let resolvedTopic = $state('')
@@ -11,9 +12,10 @@
     let newsSelected = $state(false);
     let resultData = $state(null);
     let statusOk =  $state(false);
+    
+    setContext('analyze', analyze);
 
     //const API = import.meta.env.VITE_API_BASE;
-
 
     async function analyze(topic, text, $route) {
         loading = true;
@@ -60,7 +62,6 @@
     }
 </script>
 <FormSection
-    {analyze}
     {error}
     {loading}
     {newsSelected}
