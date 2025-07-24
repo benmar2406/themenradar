@@ -13,6 +13,7 @@
     let resultData = $state(null);
     let statusOk =  $state(false);
     
+    
     setContext('analyze', analyze);
 
     //const API = import.meta.env.VITE_API_BASE;

@@ -48,9 +48,11 @@ async function sentiment(topic, text) {
 }
 
 
-
-app.use(express.static(frontendDir));                // serve JS/CSS/assets
-
+app.use(express.static(frontendDir));  
+              // serve JS/CSS/assets
+app.get('/{*splat}', (_, res) =>
+  res.sendFile(path.join(frontendDir, 'index.html'))
+);
 
 app.post("/analyze", async (req, res) => {
   try {
@@ -139,9 +141,6 @@ app.post("/analyze-media", async (req, res) => {
 
 app.get("/health", (_, res) => res.send("ok"));
 
-app.get('/{*splat}', (_, res) =>
-  res.sendFile(path.join(frontendDir, 'index.html'))
-);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
