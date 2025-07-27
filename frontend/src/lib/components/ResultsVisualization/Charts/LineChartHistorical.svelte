@@ -153,9 +153,9 @@
 				</defs>
 
 				<!-- Areas -->
-				<path d={areaPositive} fill="url(#gradientPositive)" stroke="none" in:draw={{ duration: 1200 }} />
-				<path d={areaNeutral} fill="url(#gradientNeutral)" stroke="none" in:draw={{ duration: 1200 }} />
-				<path d={areaNegative} fill="url(#gradientNegative)" stroke="none" in:draw={{ duration: 1200 }} />
+				<path d={areaPositive} fill="url(#gradientPositive)" stroke="none" />
+				<path d={areaNeutral} fill="url(#gradientNeutral)" stroke="none" />
+				<path d={areaNegative} fill="url(#gradientNegative)" stroke="none" />
 
 				<!-- Lines -->
 				<path {...createHoverPath(linePositive, data_positive, 'positiv', '#FFD166')} />
@@ -204,7 +204,7 @@
 				>
 					<strong style="color: {tooltip.color}">{tooltip.label}</strong><br />
 					{tooltip.date.toLocaleDateString('de-DE', { month: 'long', year: 'numeric' })}<br />
-					Wert: {tooltip.value.toFixed(1)}%
+					Wert: {tooltip.value.toLocaleString('de-DE', {maximumFractionDigits: 2, minimumFractionDigits: 2})}%
 				</div>
 			{/if}
 		{/if}
