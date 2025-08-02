@@ -6,6 +6,7 @@
     src: url('/fonts/Poppins/Poppins-Regular.ttf') format('truetype');
     font-weight: 400;
     font-style: normal;
+    font-display: swap;
   }
   
   @font-face {
@@ -13,6 +14,7 @@
     src: url('/fonts/Poppins/Poppins-Medium.ttf') format('truetype');
     font-weight: 500;
     font-style: normal;
+    font-display: swap;
   }
   
   @font-face {
@@ -20,6 +22,7 @@
     src: url('/fonts/Poppins/Poppins-SemiBold.ttf') format('truetype');
     font-weight: 600;
     font-style: normal;
+    font-display: swap;
   }
   
   @font-face {
@@ -27,14 +30,9 @@
     src: url('/fonts/Newsreader/Newsreader-VariableFont_opsz,wght.ttf') format('truetype-variations');
     font-weight: 200 800;
     font-style: normal;
+    font-display: swap;
   }
-  
-  @font-face {
-    font-family: 'Newsreader';
-    src: url('/fonts/Newsreader/Newsreader_9pt-Italic.ttf') format('truetype-variations');
-    font-weight: 200 800;
-    font-style: italic;
-  }
+
 
   :root {
     --primary: #FFD166;
@@ -46,7 +44,7 @@
   html body {
     margin: 0;
     padding: 0;
-    font-family: 'Poppins';
+    font-family: 'Poppins', 'Helvetica Neue', Helvetica, Arial, sans-serif;;
     font-weight: 400;
   }
 
