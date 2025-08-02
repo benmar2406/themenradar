@@ -8,7 +8,7 @@
         <p>So erhältst du in Sekundenschnelle einen Eindruck davon, wie die öffentliche Wahrnehmung deiner Themen gestaltet ist.</p>
     </article>
     <div class="informational-image">
-        <img src="/images/magazines.webp" alt="radar chart"/>
+        <img src="/images/magazines.webp" alt="newspapers"/>
     </div>
 </section>
 
