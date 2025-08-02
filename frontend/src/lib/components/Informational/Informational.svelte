@@ -30,11 +30,14 @@
 
     .informational-image {
         flex-basis: 50%;
+        height: 450px;
+        overflow: hidden;
     }
 
     .informational-image img {
-        object-fit: contain;
+        object-fit: cover;
         width: 100%;
+        height: 100%;
     }
 
     @media only screen and (max-width: 900px) {
