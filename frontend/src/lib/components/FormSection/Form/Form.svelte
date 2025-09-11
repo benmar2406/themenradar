@@ -54,24 +54,25 @@
 
 <style>
     form {
-        width: 100%;
+        width: 80%;
     }
    
     input, textarea {
         margin: 1rem 0;
         padding: 1rem;
-        width: 100%;
-        height: 3rem;
-        border-radius: 20px;
+        height: 3.1rem;
+        border-radius: 40px;
         border: solid 2px black;
         box-sizing: border-box;
         font-family: 'Poppins';
         font-weight: 400;
+        width: 100%;
     }
 
-    #topic {
-       width: 50%;
+    button {
+        height: 3.1rem;
     }
+
 
     #text {
         width: 100%;
@@ -83,7 +84,9 @@
         text-align: center;
     }
 
-    @media only screen and (max-width: 1150px) {
+
+
+    @media only screen and (max-width: 1200px) {
         
         form {
             margin: 4rem auto;

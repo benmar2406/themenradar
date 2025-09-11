@@ -79,19 +79,19 @@
 
     .button-container {
         display: flex;
-        width: 90%;
         margin-bottom: 2rem;
         align-items: center;
-        justify-content: flex-start;
+        justify-content: space-between;
         box-sizing: border-box;
+        width: 80%;
     }
 
     .button-container button {
         font-size: 1.1rem;
-        margin-right: 2rem;
+        padding: 0.7rem 1.4rem;
     }
 
-    @media only screen and (max-width: 1150px) {
+    @media only screen and (max-width: 1200px) {
         .form-container {
             width: 95%;
             margin: auto;

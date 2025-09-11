@@ -48,7 +48,7 @@
         padding-bottom: 1.5rem;
     }
 
-    @media only screen and (max-width: 1150px) {
+    @media only screen and (max-width: 1200px   ) {
         .form-section {
             flex-direction: column;
             width: 90%;
@@ -58,7 +58,6 @@
         article {
             display: none;
         }
-    }
-
+    }   
 
 </style>

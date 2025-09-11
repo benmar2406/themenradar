@@ -79,12 +79,12 @@
 
 button {
     background-color: transparent;
-    border: solid 0.3rem var(--primary);
+    border: solid 0.2rem var(--primary);
     color: #1E1E1E;
     font-family: 'Poppins', sans-serif;
     text-decoration: none;
-    padding: 0.7rem;
-    border-radius: 0.2rem;
+    padding: 0.7rem 1rem;
+    border-radius: 40px;
     cursor: pointer;
     transition: all 0.3s ease;
  }
